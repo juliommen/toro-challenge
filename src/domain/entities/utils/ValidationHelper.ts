@@ -56,4 +56,11 @@ export class ValidatorHelper {
     const doesItContainOnlyDigits = /^\d+$/.test(value)
     return doesItContainOnlyDigits && isItString
   }
+
+  static checkPositiveInteger(value: number) {
+    const isItNumber = typeof value === 'number'
+    const isItInteger = Number.isInteger(value)
+    const isItPositive = value > 0
+    return isItNumber && isItInteger && isItPositive
+  }
 }
