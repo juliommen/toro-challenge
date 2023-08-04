@@ -1,14 +1,14 @@
 export class UserAccount {
-  private _cpf: string
+  private readonly _cpf: string
   private _accountNumber: number
 
   constructor(cpf: string) {
     const isValidCpf = UserAccount.cpfValidator(cpf)
     if (isValidCpf) {
       this._cpf = cpf
-    } else {
-      throw new Error('Invalid CPF')
     }
+
+    throw new Error('Invalid CPF')
   }
 
   public get cpf(): string {
