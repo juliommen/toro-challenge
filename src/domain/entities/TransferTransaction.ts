@@ -76,21 +76,29 @@ export class TransferTransacition {
     if (event !== TransferTransacition.TRANSFER_TRANSACTION_EVENT) {
       return 'event'
     }
-    if (
-      !origin ||
-      !ValidatorHelper.checkConvertionToInteger(origin.bank) ||
-      !ValidatorHelper.checkConvertionToInteger(origin.branch) ||
-      !ValidatorHelper.checkCpfValidation(origin.cpf)
-    ) {
+    if (!origin) {
       return 'origin'
     }
-    if (
-      !target ||
-      !ValidatorHelper.checkConvertionToInteger(target.account) ||
-      target.bank !== TransferTransacition.TARGET_BANK ||
-      target.branch !== TransferTransacition.TARGET_BRANCH
-    ) {
+    if (!ValidatorHelper.checkConvertionToInteger(origin.bank)) {
+      return 'origin.bank'
+    }
+    if (!ValidatorHelper.checkConvertionToInteger(origin.branch)) {
+      return 'origin.branch'
+    }
+    if (!ValidatorHelper.checkCpfValidation(origin.cpf)) {
+      return 'origin.cpf'
+    }
+    if (!target) {
       return 'target'
+    }
+    if (!ValidatorHelper.checkConvertionToInteger(target.account)) {
+      return 'target.account'
+    }
+    if (target.bank !== TransferTransacition.TARGET_BANK) {
+      return 'target.bank'
+    }
+    if (target.branch !== TransferTransacition.TARGET_BRANCH) {
+      return 'target.branch'
     }
     return null
   }
