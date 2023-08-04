@@ -3,7 +3,6 @@ import { describe, expect, it } from 'vitest'
 import { TransferTransacition } from './TransferTransaction'
 
 const VALID_CPF = '36577946035'
-const INVALID_CPF = '08654098745'
 
 describe('Transfer transaction unit tests', () => {
   it('should be able to create a new transfer transaction', async () => {
@@ -25,9 +24,10 @@ describe('Transfer transaction unit tests', () => {
     expect(transferTransaction).toEqual(
       expect.objectContaining({
         _event: event,
-        _amount: amount,
+        _amount: amount * 100,
         _target: expect.objectContaining(target),
         _origin: expect.objectContaining(origin),
+        _createdAt: expect.any(Number),
       }),
     )
   })
