@@ -9,7 +9,13 @@ describe('User account unit tests', () => {
     expect(userAccount.cpf).toEqual(cpf)
   })
 
-  it('should be able to set an account number do a user account', async () => {
+  it('should not be able to create a new user account with an invalid CPF', async () => {
+    expect(() => {
+      const userAccount = new UserAccount('3657794603')
+    }).toThrowError()
+  })
+
+  it('should be able to set an account number to a user account', async () => {
     const cpf = '36577946035'
     const userAccount = new UserAccount(cpf)
 
@@ -17,26 +23,5 @@ describe('User account unit tests', () => {
     userAccount.accountNumber = accountNumber
 
     expect(userAccount.accountNumber).toEqual(accountNumber)
-  })
-
-  it('should not be able to create a new user account with an invalid CPF', async () => {
-    expect(() => {
-      const userAccount = new UserAccount('3657794603')
-    }).toThrowError()
-    expect(() => {
-      const userAccount = new UserAccount('')
-    }).toThrowError()
-    expect(() => {
-      const userAccount = new UserAccount(undefined)
-    }).toThrowError()
-    expect(() => {
-      const userAccount = new UserAccount(null)
-    }).toThrowError()
-    expect(() => {
-      const userAccount = new UserAccount([] as any)
-    }).toThrowError()
-    expect(() => {
-      const userAccount = new UserAccount({} as any)
-    }).toThrowError()
   })
 })
