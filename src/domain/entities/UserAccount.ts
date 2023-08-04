@@ -24,7 +24,7 @@ export class UserAccount {
   }
 
   static cpfValidator(cpf: string): boolean {
-    if (cpf.length === 11) {
+    if (cpf && typeof cpf === 'string' && cpf.length === 11) {
       const doesTheCpfContainOnlyDigits = /^\d+$/.test(cpf)
 
       if (!doesTheCpfContainOnlyDigits) {
