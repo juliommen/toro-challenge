@@ -51,7 +51,8 @@ export class ValidatorHelper {
     }
   }
 
-  static checkConvertionToNumber(value: string) {
-    return !isNaN(parseInt(value))
+  static checkConvertionToInteger(value: string) {
+    const doesItContainOnlyDigits = /^\d+$/.test(value)
+    return doesItContainOnlyDigits
   }
 }
