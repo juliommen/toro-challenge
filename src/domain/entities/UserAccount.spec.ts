@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, expect, it } from 'vitest'
 import { UserAccount } from './UserAccount'
 
@@ -19,10 +20,23 @@ describe('User account unit tests', () => {
   })
 
   it('should not be able to create a new user account with an invalid CPF', async () => {
-    const cpf = '3657794603'
-
     expect(() => {
-      const userAccount = new UserAccount(cpf)
-    }).toThrowError('Invalid CPF')
+      const userAccount = new UserAccount('3657794603')
+    }).toThrowError()
+    expect(() => {
+      const userAccount = new UserAccount('')
+    }).toThrowError()
+    expect(() => {
+      const userAccount = new UserAccount(undefined)
+    }).toThrowError()
+    expect(() => {
+      const userAccount = new UserAccount(null)
+    }).toThrowError()
+    expect(() => {
+      const userAccount = new UserAccount([] as any)
+    }).toThrowError()
+    expect(() => {
+      const userAccount = new UserAccount({} as any)
+    }).toThrowError()
   })
 })
