@@ -1,4 +1,4 @@
-import type { AWS } from '@serverless/typescript';
+import type { AWS } from '@serverless/typescript'
 
 const serverlessConfiguration: AWS = {
   service: 'toro-challenge',
@@ -17,7 +17,7 @@ const serverlessConfiguration: AWS = {
     },
   },
 
-  functions: {  },
+  functions: {},
   package: { individually: true },
   custom: {
     esbuild: {
@@ -31,6 +31,6 @@ const serverlessConfiguration: AWS = {
       concurrency: 10,
     },
   },
-};
+}
 
-module.exports = serverlessConfiguration;
+module.exports = serverlessConfiguration
