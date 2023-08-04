@@ -1,8 +1,9 @@
 import { ValidatorHelper } from './utils/ValidationHelper'
 
 export class UserAccount {
-  private readonly _cpf: string
+  private _cpf: string
   private _accountNumber: number
+  private _createdAt: number
 
   constructor(cpf: string) {
     const isValidCpf = ValidatorHelper.checkCpfValidation(cpf)
@@ -12,17 +13,18 @@ export class UserAccount {
     }
 
     this._cpf = cpf
+    this._createdAt = new Date().getTime()
   }
 
-  public get cpf(): string {
+  get cpf(): string {
     return this._cpf
   }
 
-  public get accountNumber(): number {
+  get accountNumber(): number {
     return this._accountNumber
   }
 
-  public set accountNumber(account: number) {
+  set accountNumber(account: number) {
     this._accountNumber = account
   }
 }

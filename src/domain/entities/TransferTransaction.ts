@@ -20,14 +20,15 @@ interface TransferTransactionProps {
 }
 
 export class TransferTransacition {
-  static TRANSFER_TRANSACTION_EVENT = 'TRANSFER'
-  static TARGET_BANK = '352'
-  static TARGET_BRANCH = '0001'
+  private TRANSFER_TRANSACTION_EVENT = 'TRANSFER'
+  private TARGET_BANK = '352'
+  private TARGET_BRANCH = '0001'
 
-  private readonly _event: string
-  private readonly _target: Target
-  private readonly _origin: Origin
-  private readonly _amount: number
+  private _event: string
+  private _target: Target
+  private _origin: Origin
+  private _amount: number
+  private _createdAt: number
 
   constructor(props: TransferTransactionProps) {
     const validationResult = this.validateInput(props)
@@ -40,6 +41,7 @@ export class TransferTransacition {
     this._amount = props.amount
     this._target = props.target
     this._origin = props.origin
+    this._createdAt = new Date().getTime()
   }
 
   get target() {
@@ -58,6 +60,10 @@ export class TransferTransacition {
     return this._event
   }
 
+  get createdAt() {
+    return this._createdAt
+  }
+
   private validateInput({
     amount,
     event,
@@ -67,7 +73,7 @@ export class TransferTransacition {
     if (typeof amount !== 'number' || amount < 0.01) {
       return 'amount'
     }
-    if (!event || event !== TransferTransacition.TRANSFER_TRANSACTION_EVENT) {
+    if (!event || event !== this.TRANSFER_TRANSACTION_EVENT) {
       return 'event'
     }
     if (
@@ -81,8 +87,8 @@ export class TransferTransacition {
     if (
       !target ||
       !ValidatorHelper.checkConvertionToInteger(target.account) ||
-      target.bank !== TransferTransacition.TARGET_BANK ||
-      target.branch !== TransferTransacition.TARGET_BRANCH
+      target.bank !== this.TARGET_BANK ||
+      target.branch !== this.TARGET_BRANCH
     ) {
       return 'target'
     }
