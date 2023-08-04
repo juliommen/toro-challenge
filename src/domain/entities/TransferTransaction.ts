@@ -20,9 +20,9 @@ interface TransferTransactionProps {
 }
 
 export class TransferTransacition {
-  private TRANSFER_TRANSACTION_EVENT = 'TRANSFER'
-  private TARGET_BANK = '352'
-  private TARGET_BRANCH = '0001'
+  static TRANSFER_TRANSACTION_EVENT = 'TRANSFER'
+  static TARGET_BANK = '352'
+  static TARGET_BRANCH = '0001'
 
   private _event: string
   private _target: Target
@@ -38,7 +38,7 @@ export class TransferTransacition {
     }
 
     this._event = props.event
-    this._amount = props.amount
+    this._amount = props.amount * 100
     this._target = props.target
     this._origin = props.origin
     this._createdAt = new Date().getTime()
@@ -70,10 +70,10 @@ export class TransferTransacition {
     origin,
     target,
   }: TransferTransactionProps): string | null {
-    if (typeof amount !== 'number' || amount < 0.01) {
+    if (!ValidatorHelper.checkPositiveInteger(amount * 100)) {
       return 'amount'
     }
-    if (!event || event !== this.TRANSFER_TRANSACTION_EVENT) {
+    if (event !== TransferTransacition.TRANSFER_TRANSACTION_EVENT) {
       return 'event'
     }
     if (
@@ -87,8 +87,8 @@ export class TransferTransacition {
     if (
       !target ||
       !ValidatorHelper.checkConvertionToInteger(target.account) ||
-      target.bank !== this.TARGET_BANK ||
-      target.branch !== this.TARGET_BRANCH
+      target.bank !== TransferTransacition.TARGET_BANK ||
+      target.branch !== TransferTransacition.TARGET_BRANCH
     ) {
       return 'target'
     }
