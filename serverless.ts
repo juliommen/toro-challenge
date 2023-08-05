@@ -20,6 +20,9 @@ const serverlessConfiguration: AWS = {
   functions: {},
   package: { individually: true },
   custom: {
+    'serverless-offline': {
+      noPrependStageInUrl: true,
+    },
     esbuild: {
       bundle: true,
       minify: false,
@@ -50,6 +53,58 @@ const serverlessConfiguration: AWS = {
   },
   resources: {
     Resources: {
+      UserAccountTable: {
+        Type: 'AWS::DynamoDB::Table',
+        Properties: {
+          TableName: 'user_account',
+          AttributeDefinitions: [
+            {
+              AttributeName: 'hash_key',
+              AttributeType: 'N',
+            },
+            {
+              AttributeName: 'account_number',
+              AttributeType: 'N',
+            },
+            {
+              AttributeName: 'cpf',
+              AttributeType: 'S',
+            },
+          ],
+          KeySchema: [
+            {
+              AttributeName: 'hash_key',
+              KeyType: 'HASH',
+            },
+            {
+              AttributeName: 'account_number',
+              KeyType: 'RANGE',
+            },
+          ],
+          GlobalSecondaryIndexes: [
+            {
+              IndexName: 'cpf_index',
+              KeySchema: [
+                {
+                  AttributeName: 'cpf',
+                  KeyType: 'HASH',
+                },
+              ],
+              Projection: {
+                ProjectionType: 'KEYS_ONLY',
+              },
+              ProvisionedThroughput: {
+                ReadCapacityUnits: 5,
+                WriteCapacityUnits: 5,
+              },
+            },
+          ],
+          ProvisionedThroughput: {
+            ReadCapacityUnits: 5,
+            WriteCapacityUnits: 5,
+          },
+        },
+      },
       StockTable: {
         Type: 'AWS::DynamoDB::Table',
         Properties: {
