@@ -4,7 +4,7 @@
   "description": "Investment Serverless API - Technical Challenge",
   "main": "serverless.ts",
   "scripts": {
-    "test:unit": "vitest run --dir src/domain/entities"
+    "test": "vitest run --dir src/domain/"
   },
   "engines": {
     "node": ">=14.15.0"
