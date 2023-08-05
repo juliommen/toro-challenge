@@ -17,6 +17,10 @@ export class TransactionsRepository implements ITransactionsRepository {
     return singletonInstance
   }
 
+  static reset() {
+    singletonInstance = null
+  }
+
   async createTransfer(transferTransaction: TransferTransaction) {
     this.transactions.push(transferTransaction)
 

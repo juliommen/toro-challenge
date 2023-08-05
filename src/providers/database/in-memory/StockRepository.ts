@@ -15,6 +15,10 @@ export class StockRepository implements IStockRepository {
     return singletonInstance
   }
 
+  static reset() {
+    singletonInstance = null
+  }
+
   async findByName(name: string) {
     const stock = this.stocks.find((stock) => stock.name === name)
     return stock

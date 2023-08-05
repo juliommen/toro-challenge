@@ -15,6 +15,10 @@ export class UserAccountRepository implements IUserAccountRepository {
     return singletonInstance
   }
 
+  static reset() {
+    singletonInstance = null
+  }
+
   async create(userAccount: UserAccount) {
     this.userAccount.push(userAccount)
     return userAccount
