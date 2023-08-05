@@ -15,6 +15,7 @@ export class UserAccount {
     }
 
     this._cpf = cpf
+    this._balance = 0
     this._createdAt = new Date().getTime()
   }
 
