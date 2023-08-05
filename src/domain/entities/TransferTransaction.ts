@@ -34,7 +34,9 @@ export class TransferTransacition {
     const validationResult = this.validateInput(props)
 
     if (validationResult) {
-      throw new Error(`Validation error: invalid ${validationResult}`)
+      throw new Error(
+        `Validation error: invalid transfer transaction ${validationResult}`,
+      )
     }
 
     this._event = props.event

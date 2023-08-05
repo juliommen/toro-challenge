@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { TransferTransacition } from './TransferTransaction'
 
 const VALID_CPF = '36577946035'
+const EXPECTED_ERROR = 'Validation error: invalid transfer transaction'
 
 const validTransferTransactionData = {
   event: TransferTransacition.TRANSFER_TRANSACTION_EVENT,
@@ -39,21 +40,21 @@ describe('Transfer transaction unit tests', () => {
       target: undefined as any,
     }
 
-    const EXPECTED_ERROR = 'Validation error: invalid amount'
+    const specificExpectedError = EXPECTED_ERROR + ' amount'
 
     expect(() => {
       const transferTransaction = new TransferTransacition({
         ...validTransferTransactionData,
         amount: undefined as any,
       })
-    }).toThrowError(EXPECTED_ERROR)
+    }).toThrowError(specificExpectedError)
 
     expect(() => {
       const transferTransaction = new TransferTransacition({
         ...validTransferTransactionData,
         amount: 0 as any,
       })
-    }).toThrowError(EXPECTED_ERROR)
+    }).toThrowError(specificExpectedError)
   })
 
   it('should not be able to create a new transfer transaction with invalid event', async () => {
@@ -63,80 +64,80 @@ describe('Transfer transaction unit tests', () => {
       target: undefined as any,
     }
 
-    const EXPECTED_ERROR = 'Validation error: invalid event'
+    const specificExpectedError = EXPECTED_ERROR + ' event'
 
     expect(() => {
       const transferTransaction = new TransferTransacition({
         ...validTransferTransactionData,
         event: undefined as any,
       })
-    }).toThrowError(EXPECTED_ERROR)
+    }).toThrowError(specificExpectedError)
 
     expect(() => {
       const transferTransaction = new TransferTransacition({
         ...validTransferTransactionData,
         event: 'TEST' as any,
       })
-    }).toThrowError(EXPECTED_ERROR)
+    }).toThrowError(specificExpectedError)
   })
 
   it('should not be able to create a new transfer transaction with invalid origin', async () => {
-    const EXPECTED_ERROR = 'Validation error: invalid origin'
+    const specificExpectedError = EXPECTED_ERROR + ' origin'
 
     expect(() => {
       const transferTransaction = new TransferTransacition({
         ...validTransferTransactionData,
         origin: undefined as any,
       })
-    }).toThrowError(EXPECTED_ERROR)
+    }).toThrowError(specificExpectedError)
   })
 
   it('should not be able to create a new transfer transaction with invalid origin bank', async () => {
-    const EXPECTED_ERROR = 'Validation error: invalid origin.bank'
+    const specificExpectedError = EXPECTED_ERROR + ' origin.bank'
 
     expect(() => {
       const transferTransaction = new TransferTransacition({
         ...validTransferTransactionData,
         origin: { bank: undefined as any, branch: '1', cpf: VALID_CPF },
       })
-    }).toThrowError(EXPECTED_ERROR)
+    }).toThrowError(specificExpectedError)
   })
 
   it('should not be able to create a new transfer transaction with invalid origin branch', async () => {
-    const EXPECTED_ERROR = 'Validation error: invalid origin.branch'
+    const specificExpectedError = EXPECTED_ERROR + ' origin.branch'
 
     expect(() => {
       const transferTransaction = new TransferTransacition({
         ...validTransferTransactionData,
         origin: { bank: '1', branch: undefined as any, cpf: VALID_CPF },
       })
-    }).toThrowError(EXPECTED_ERROR)
+    }).toThrowError(specificExpectedError)
   })
 
   it('should not be able to create a new transfer transaction with invalid origin cpf', async () => {
-    const EXPECTED_ERROR = 'Validation error: invalid origin.cpf'
+    const specificExpectedError = EXPECTED_ERROR + ' origin.cpf'
 
     expect(() => {
       const transferTransaction = new TransferTransacition({
         ...validTransferTransactionData,
         origin: { bank: '1', branch: '1', cpf: undefined as any },
       })
-    }).toThrowError(EXPECTED_ERROR)
+    }).toThrowError(specificExpectedError)
   })
 
   it('should not be able to create a new transfer transaction with invalid target', async () => {
-    const EXPECTED_ERROR = 'Validation error: invalid target'
+    const specificExpectedError = EXPECTED_ERROR + ' target'
 
     expect(() => {
       const transferTransaction = new TransferTransacition({
         ...validTransferTransactionData,
         target: undefined as any,
       })
-    }).toThrowError(EXPECTED_ERROR)
+    }).toThrowError(specificExpectedError)
   })
 
   it('should not be able to create a new transfer transaction with invalid target bank', async () => {
-    const EXPECTED_ERROR = 'Validation error: invalid target.bank'
+    const specificExpectedError = EXPECTED_ERROR + ' target.bank'
 
     expect(() => {
       const transferTransaction = new TransferTransacition({
@@ -147,11 +148,11 @@ describe('Transfer transaction unit tests', () => {
           account: '1',
         },
       })
-    }).toThrowError(EXPECTED_ERROR)
+    }).toThrowError(specificExpectedError)
   })
 
   it('should not be able to create a new transfer transaction with invalid target branch', async () => {
-    const EXPECTED_ERROR = 'Validation error: invalid target.branch'
+    const specificExpectedError = EXPECTED_ERROR + ' target.branch'
 
     expect(() => {
       const transferTransaction = new TransferTransacition({
@@ -162,11 +163,11 @@ describe('Transfer transaction unit tests', () => {
           account: '1',
         },
       })
-    }).toThrowError(EXPECTED_ERROR)
+    }).toThrowError(specificExpectedError)
   })
 
   it('should not be able to create a new transfer transaction with invalid target account', async () => {
-    const EXPECTED_ERROR = 'Validation error: invalid target.account'
+    const specificExpectedError = EXPECTED_ERROR + ' target.account'
 
     expect(() => {
       const transferTransaction = new TransferTransacition({
@@ -177,6 +178,6 @@ describe('Transfer transaction unit tests', () => {
           account: undefined as any,
         },
       })
-    }).toThrowError(EXPECTED_ERROR)
+    }).toThrowError(specificExpectedError)
   })
 })

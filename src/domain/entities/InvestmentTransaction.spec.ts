@@ -9,6 +9,8 @@ const validInvestmentTransactionData = {
   quantity: 100,
 }
 
+const EXPECTED_ERROR = 'Validation error: invalid investment transaction'
+
 describe('Investment transaction unit tests', () => {
   it('should be able to create a new investment transaction', async () => {
     const investmentTransaction = new InvestmentTransacition(
@@ -27,52 +29,52 @@ describe('Investment transaction unit tests', () => {
   })
 
   it('should not be able to create a new investment transaction with invalid event', async () => {
-    const EXPECTED_ERROR = 'Validation error: invalid event'
+    const specificExpectedError = EXPECTED_ERROR + ' event'
 
     expect(() => {
       const investmentTransaction = new InvestmentTransacition({
         ...validInvestmentTransactionData,
         event: 'TEST',
       })
-    }).toThrowError(EXPECTED_ERROR)
+    }).toThrowError(specificExpectedError)
     expect(() => {
       const investmentTransaction = new InvestmentTransacition({
         ...validInvestmentTransactionData,
         event: undefined,
       })
-    }).toThrowError(EXPECTED_ERROR)
+    }).toThrowError(specificExpectedError)
   })
 
   it('should not be able to create a new investment transaction with invalid quantity', async () => {
-    const EXPECTED_ERROR = 'Validation error: invalid quantity'
+    const specificExpectedError = EXPECTED_ERROR + ' quantity'
 
     expect(() => {
       const investmentTransaction = new InvestmentTransacition({
         ...validInvestmentTransactionData,
         quantity: undefined,
       })
-    }).toThrowError(EXPECTED_ERROR)
+    }).toThrowError(specificExpectedError)
   })
 
   it('should not be able to create a new investment transaction with invalid price', async () => {
-    const EXPECTED_ERROR = 'Validation error: invalid price'
+    const specificExpectedError = EXPECTED_ERROR + ' price'
 
     expect(() => {
       const investmentTransaction = new InvestmentTransacition({
         ...validInvestmentTransactionData,
         price: undefined,
       })
-    }).toThrowError(EXPECTED_ERROR)
+    }).toThrowError(specificExpectedError)
   })
 
   it('should not be able to create a new investment transaction with invalid stock', async () => {
-    const EXPECTED_ERROR = 'Validation error: invalid stock'
+    const specificExpectedError = EXPECTED_ERROR + ' stock'
 
     expect(() => {
       const investmentTransaction = new InvestmentTransacition({
         ...validInvestmentTransactionData,
         stock: undefined,
       })
-    }).toThrowError(EXPECTED_ERROR)
+    }).toThrowError(specificExpectedError)
   })
 })

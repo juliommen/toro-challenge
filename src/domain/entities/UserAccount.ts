@@ -9,7 +9,7 @@ export class UserAccount {
     const isValidCpf = ValidatorHelper.checkCpfValidation(cpf)
 
     if (!isValidCpf) {
-      throw new Error('Invalid CPF')
+      throw new Error('Validation error: invalid user account cpf')
     }
 
     this._cpf = cpf
@@ -26,7 +26,7 @@ export class UserAccount {
 
   set accountNumber(account: number) {
     if (!ValidatorHelper.checkPositiveInteger(account)) {
-      throw new Error('Invalid account number')
+      throw new Error('Validation error: invalid user account number')
     }
     this._accountNumber = account
   }

@@ -20,7 +20,9 @@ export class InvestmentTransacition {
     const validationResult = this.validateInput(props)
 
     if (validationResult) {
-      throw new Error(`Validation error: invalid ${validationResult}`)
+      throw new Error(
+        `Validation error: invalid investment transaction ${validationResult}`,
+      )
     }
 
     this._event = props.event

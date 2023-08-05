@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { Stock } from './Stock'
 
 const validStockData = {
-  stock: 'TEST',
+  name: 'TEST',
   price: 4000,
 }
 
@@ -13,14 +13,14 @@ describe('Stock unit tests', () => {
 
     expect(stock).toEqual(
       expect.objectContaining({
-        _stock: validStockData.stock,
+        _name: validStockData.name,
         _price: validStockData.price,
       }),
     )
   })
 
   it('should not be able to create a new stock with invalid price', async () => {
-    const EXPECTED_ERROR = 'Validation error: invalid price'
+    const EXPECTED_ERROR = 'Validation error: invalid stock price'
 
     expect(() => {
       const stock = new Stock({
@@ -30,13 +30,13 @@ describe('Stock unit tests', () => {
     }).toThrowError(EXPECTED_ERROR)
   })
 
-  it('should not be able to create a new stock with invalid stock', async () => {
-    const EXPECTED_ERROR = 'Validation error: invalid stock'
+  it('should not be able to create a new stock with invalid name', async () => {
+    const EXPECTED_ERROR = 'Validation error: invalid stock name'
 
     expect(() => {
       const stock = new Stock({
         ...validStockData,
-        stock: undefined,
+        name: undefined,
       })
     }).toThrowError(EXPECTED_ERROR)
   })
