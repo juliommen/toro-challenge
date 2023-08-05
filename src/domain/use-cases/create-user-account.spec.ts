@@ -11,7 +11,7 @@ let userAccountUserCase: CreateUserAccountUseCase
 
 describe('Create user account integration tests', () => {
   beforeAll(() => {
-    userAccountRepository = new UserAccountRepository()
+    userAccountRepository = UserAccountRepository.getInstance()
     userAccountUserCase = new CreateUserAccountUseCase(userAccountRepository)
   })
 
@@ -23,6 +23,7 @@ describe('Create user account integration tests', () => {
       _cpf: newUserAccount.cpf,
       _createdAt: expect.any(Number),
       _accountNumber: 1,
+      _balance: 0,
     })
   })
 
@@ -43,6 +44,7 @@ describe('Create user account integration tests', () => {
       _cpf: newUserAccount.cpf,
       _createdAt: expect.any(Number),
       _accountNumber: 2,
+      _balance: 0,
     })
   })
 })
