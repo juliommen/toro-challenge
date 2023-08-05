@@ -1,5 +1,5 @@
 import { UserAccountRepository } from '@/providers/database/in-memory/UserAccountRepository'
-import { beforeAll, describe, expect, it } from 'vitest'
+import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest'
 import { UserAccount } from '../entities/UserAccount'
 import { CreateTransferUseCase } from './create-transfer'
 import { TransactionsRepository } from '@/providers/database/in-memory/TransactionsRepository'
@@ -13,13 +13,18 @@ let userAccountRepository: UserAccountRepository
 let createTransferUseCase: CreateTransferUseCase
 
 describe('Create transfer transaction integration tests', () => {
-  beforeAll(async () => {
+  beforeEach(() => {
     userAccountRepository = UserAccountRepository.getInstance()
     transactionsRepository = TransactionsRepository.getInstance()
     createTransferUseCase = new CreateTransferUseCase(
       transactionsRepository,
       userAccountRepository,
     )
+  })
+
+  afterEach(() => {
+    UserAccountRepository.reset()
+    TransactionsRepository.reset()
   })
 
   it('should be able to create a new transfer transaction', async () => {
@@ -45,8 +50,6 @@ describe('Create transfer transaction integration tests', () => {
     const createdTransfer = await createTransferUseCase.execute(
       transferTransaction,
     )
-
-    console.log(userAccount)
 
     expect(createdTransfer).toEqual(
       expect.objectContaining({
