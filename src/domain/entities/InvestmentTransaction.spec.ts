@@ -6,7 +6,6 @@ import { DomainError } from '../errors/DomainError'
 const validInvestmentTransactionData = {
   event: InvestmentTransacition.INVESTMENT_TRANSACTION_EVENT,
   stock: 'TEST',
-  price: 4000,
   quantity: 100,
 }
 
@@ -20,7 +19,6 @@ describe('Investment transaction unit tests', () => {
       expect.objectContaining({
         _event: validInvestmentTransactionData.event,
         _stock: validInvestmentTransactionData.stock,
-        _price: validInvestmentTransactionData.price,
         _quantity: validInvestmentTransactionData.quantity,
         _createdAt: expect.any(Number),
       }),
@@ -45,15 +43,6 @@ describe('Investment transaction unit tests', () => {
     }).toThrowError(DomainError)
   })
 
-  it('should not be able to create a new investment transaction with invalid price', async () => {
-    expect(() => {
-      const investmentTransaction = new InvestmentTransacition({
-        ...validInvestmentTransactionData,
-        price: undefined,
-      })
-    }).toThrowError(DomainError)
-  })
-
   it('should not be able to create a new investment transaction with invalid stock', async () => {
     expect(() => {
       const investmentTransaction = new InvestmentTransacition({
@@ -69,6 +58,15 @@ describe('Investment transaction unit tests', () => {
     )
     expect(() => {
       investmentTransaction.accountNumber = '1' as any
+    }).toThrowError(DomainError)
+  })
+
+  it('should not be able to create a new investment transaction with invalid price', async () => {
+    const investmentTransaction = new InvestmentTransacition(
+      validInvestmentTransactionData,
+    )
+    expect(() => {
+      investmentTransaction.price = '1' as any
     }).toThrowError(DomainError)
   })
 })
