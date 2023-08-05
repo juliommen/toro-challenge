@@ -1,4 +1,4 @@
-import { TransferTransacition } from '../entities/TransferTransaction'
+import { TransferTransaction } from '../entities/TransferTransaction'
 import { AppError } from '../errors/AppError'
 import { ITransactionsRepository } from '../interfaces/ITransactionsRepository'
 import { IUserAccountRepository } from '../interfaces/IUserAccountRepository'
@@ -9,7 +9,7 @@ export class CreateTransferUseCase {
     private userAccountRepository: IUserAccountRepository,
   ) {}
 
-  async execute(transferTransaction: TransferTransacition) {
+  async execute(transferTransaction: TransferTransaction) {
     const account = await this.userAccountRepository.findByAccountNumber(
       transferTransaction.accountNumber,
     )
