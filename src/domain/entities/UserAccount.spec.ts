@@ -3,22 +3,23 @@ import { describe, expect, it } from 'vitest'
 import { UserAccount } from './UserAccount'
 import { DomainError } from '../errors/DomainError'
 
+const VALID_CPF = '36577946035'
+
 describe('User account unit tests', () => {
   it('should be able to create a new user account with a CPF', async () => {
-    const cpf = '36577946035'
-    const userAccount = new UserAccount(cpf)
-    expect(userAccount.cpf).toEqual(cpf)
+    const userAccount = new UserAccount(VALID_CPF)
+    expect(userAccount.cpf).toEqual(VALID_CPF)
   })
 
   it('should not be able to create a new user account with an invalid CPF', async () => {
+    const invalidCpf = '3657794603'
     expect(() => {
-      const userAccount = new UserAccount('3657794603')
+      const userAccount = new UserAccount(invalidCpf)
     }).toThrowError(DomainError)
   })
 
   it('should be able to set an account number to a user account', async () => {
-    const cpf = '36577946035'
-    const userAccount = new UserAccount(cpf)
+    const userAccount = new UserAccount(VALID_CPF)
 
     const accountNumber = 123456789
     userAccount.accountNumber = accountNumber
@@ -27,13 +28,12 @@ describe('User account unit tests', () => {
   })
 
   it('should not be able to set an invalid account number to a user account', async () => {
-    const cpf = '36577946035'
-    const userAccount = new UserAccount(cpf)
+    const userAccount = new UserAccount(VALID_CPF)
 
-    const accountNumber = '123456789' as any
+    const invalidAccountNumber = '123456789' as any
 
     expect(() => {
-      userAccount.accountNumber = accountNumber
+      userAccount.accountNumber = invalidAccountNumber
     }).toThrowError(DomainError)
   })
 })

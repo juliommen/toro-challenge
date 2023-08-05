@@ -14,7 +14,8 @@ describe('Authenticate user integration tests', () => {
   })
 
   it('should be able to authenticate a user', async () => {
-    const userAccount = new UserAccount('36577946035')
+    const validCpf = '36577946035'
+    const userAccount = new UserAccount(validCpf)
     userAccount.accountNumber = 1
 
     await userAccountRepository.create(userAccount)

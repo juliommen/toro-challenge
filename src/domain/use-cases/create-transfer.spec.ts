@@ -6,6 +6,8 @@ import { TransactionsRepository } from '@/providers/database/in-memory/Transacti
 import { TransferTransacition } from '../entities/TransferTransaction'
 import { AppError } from '../errors/AppError'
 
+const VALID_CPF = '36577946035'
+
 let transactionsRepository: TransactionsRepository
 let userAccountRepository: UserAccountRepository
 let createTransferUseCase: CreateTransferUseCase
@@ -21,7 +23,7 @@ describe('Create transfer transaction integration tests', () => {
   })
 
   it('should be able to create a new transfer transaction', async () => {
-    const userAccount = new UserAccount('36577946035')
+    const userAccount = new UserAccount(VALID_CPF)
     userAccount.accountNumber = 1
     await userAccountRepository.create(userAccount)
 
@@ -33,7 +35,7 @@ describe('Create transfer transaction integration tests', () => {
         bank: TransferTransacition.TARGET_BANK,
         branch: TransferTransacition.TARGET_BRANCH,
       },
-      origin: { bank: '0002', branch: '353', cpf: '36577946035' },
+      origin: { bank: '0002', branch: '353', cpf: VALID_CPF },
     }
 
     const transferTransaction = new TransferTransacition(
@@ -60,7 +62,7 @@ describe('Create transfer transaction integration tests', () => {
         bank: TransferTransacition.TARGET_BANK,
         branch: TransferTransacition.TARGET_BRANCH,
       },
-      origin: { bank: '0002', branch: '353', cpf: '36577946035' },
+      origin: { bank: '0002', branch: '353', cpf: VALID_CPF },
     }
 
     const transferTransaction = new TransferTransacition(

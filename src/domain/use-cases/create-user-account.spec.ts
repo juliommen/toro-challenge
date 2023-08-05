@@ -4,6 +4,8 @@ import { UserAccount } from '../entities/UserAccount'
 import { CreateUserAccountUseCase } from './create-user-account'
 import { AppError } from '../errors/AppError'
 
+const VALID_CPF = '36577946035'
+
 let userAccountRepository: UserAccountRepository
 let userAccountUserCase: CreateUserAccountUseCase
 
@@ -14,7 +16,7 @@ describe('Create user account integration tests', () => {
   })
 
   it('should be able to create a new user account', async () => {
-    const newUserAccount = new UserAccount('36577946035')
+    const newUserAccount = new UserAccount(VALID_CPF)
     const createdUserAccount = await userAccountUserCase.execute(newUserAccount)
 
     expect(createdUserAccount).toEqual({
@@ -25,7 +27,7 @@ describe('Create user account integration tests', () => {
   })
 
   it('should not be able to create a new user account with the same cpf', async () => {
-    const newUserAccount = new UserAccount('36577946035')
+    const newUserAccount = new UserAccount(VALID_CPF)
 
     expect(
       async () => await userAccountUserCase.execute(newUserAccount),
@@ -33,7 +35,8 @@ describe('Create user account integration tests', () => {
   })
 
   it('should be able to create a new user account with incremented account number', async () => {
-    const newUserAccount = new UserAccount('89186073001')
+    const cpf = '89186073001'
+    const newUserAccount = new UserAccount(cpf)
     const createdUserAccount = await userAccountUserCase.execute(newUserAccount)
 
     expect(createdUserAccount).toEqual({
