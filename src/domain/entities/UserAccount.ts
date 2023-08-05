@@ -30,4 +30,8 @@ export class UserAccount {
     }
     this._accountNumber = account
   }
+
+  get createdAt(): number {
+    return this._createdAt
+  }
 }
