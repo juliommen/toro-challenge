@@ -24,20 +24,28 @@ describe('User account unit tests', () => {
   })
 
   it('should be able to correctly check if a value can be converted to integer', async () => {
-    expect(ValidatorHelper.checkConvertionToInteger('123')).toEqual(true)
+    expect(ValidatorHelper.checkConvertionToPositiveInt('123')).toEqual(true)
   })
 
   it('should be able to correctly check if a value cannot be converted to integer', async () => {
-    expect(ValidatorHelper.checkConvertionToInteger('0')).toEqual(false)
-    expect(ValidatorHelper.checkConvertionToInteger('3-35')).toEqual(false)
-    expect(ValidatorHelper.checkConvertionToInteger('1a')).toEqual(false)
-    expect(ValidatorHelper.checkConvertionToInteger('1.1')).toEqual(false)
-    expect(ValidatorHelper.checkConvertionToInteger(1 as any)).toEqual(false)
-    expect(ValidatorHelper.checkConvertionToInteger('')).toEqual(false)
-    expect(ValidatorHelper.checkConvertionToInteger({} as any)).toEqual(false)
-    expect(ValidatorHelper.checkConvertionToInteger([] as any)).toEqual(false)
-    expect(ValidatorHelper.checkConvertionToInteger(undefined)).toEqual(false)
-    expect(ValidatorHelper.checkConvertionToInteger(null)).toEqual(false)
+    expect(ValidatorHelper.checkConvertionToPositiveInt('0')).toEqual(false)
+    expect(ValidatorHelper.checkConvertionToPositiveInt('3-35')).toEqual(false)
+    expect(ValidatorHelper.checkConvertionToPositiveInt('1a')).toEqual(false)
+    expect(ValidatorHelper.checkConvertionToPositiveInt('1.1')).toEqual(false)
+    expect(ValidatorHelper.checkConvertionToPositiveInt(1 as any)).toEqual(
+      false,
+    )
+    expect(ValidatorHelper.checkConvertionToPositiveInt('')).toEqual(false)
+    expect(ValidatorHelper.checkConvertionToPositiveInt({} as any)).toEqual(
+      false,
+    )
+    expect(ValidatorHelper.checkConvertionToPositiveInt([] as any)).toEqual(
+      false,
+    )
+    expect(ValidatorHelper.checkConvertionToPositiveInt(undefined)).toEqual(
+      false,
+    )
+    expect(ValidatorHelper.checkConvertionToPositiveInt(null)).toEqual(false)
   })
 
   it('should be able to correctly check if a value is an positive integer', async () => {

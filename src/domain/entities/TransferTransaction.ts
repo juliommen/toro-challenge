@@ -80,10 +80,10 @@ export class TransferTransacition {
     if (!origin) {
       return 'origin'
     }
-    if (!ValidatorHelper.checkConvertionToInteger(origin.bank)) {
+    if (!ValidatorHelper.checkConvertionToPositiveInt(origin.bank)) {
       return 'origin.bank'
     }
-    if (!ValidatorHelper.checkConvertionToInteger(origin.branch)) {
+    if (!ValidatorHelper.checkConvertionToPositiveInt(origin.branch)) {
       return 'origin.branch'
     }
     if (!ValidatorHelper.checkCpfValidation(origin.cpf)) {
@@ -92,7 +92,7 @@ export class TransferTransacition {
     if (!target) {
       return 'target'
     }
-    if (!ValidatorHelper.checkConvertionToInteger(target.account)) {
+    if (!ValidatorHelper.checkConvertionToPositiveInt(target.account)) {
       return 'target.account'
     }
     if (target.bank !== TransferTransacition.TARGET_BANK) {
