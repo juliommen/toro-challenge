@@ -1,10 +1,10 @@
-import { InvestmentTransacition } from '@/domain/entities/InvestmentTransaction'
-import { TransferTransacition } from '@/domain/entities/TransferTransaction'
+import { InvestmentTransaction } from '@/domain/entities/InvestmentTransaction'
+import { TransferTransaction } from '@/domain/entities/TransferTransaction'
 import { ITransactionsRepository } from '@/domain/interfaces/ITransactionsRepository'
 import { UserAccountRepository } from './UserAccountRepository'
 
 export class TransactionsRepository implements ITransactionsRepository {
-  private transactions: (InvestmentTransacition | TransferTransacition)[]
+  private transactions: (InvestmentTransaction | TransferTransaction)[]
 
   private constructor() {
     this.transactions = []
@@ -17,17 +17,20 @@ export class TransactionsRepository implements ITransactionsRepository {
     return singletonInstance
   }
 
-  async createTransfer(transferTransaction: TransferTransacition) {
+  async createTransfer(transferTransaction: TransferTransaction) {
     this.transactions.push(transferTransaction)
+
     const userAccount =
       await UserAccountRepository.getInstance().findByAccountNumber(
         transferTransaction.accountNumber,
       )
+
     userAccount.balance += transferTransaction.amount
+
     return transferTransaction
   }
 
-  async createInvestment(investmentTransaction: InvestmentTransacition) {
+  async createInvestment(investmentTransaction: InvestmentTransaction) {
     this.transactions.push(investmentTransaction)
 
     const amount = investmentTransaction.price * investmentTransaction.quantity

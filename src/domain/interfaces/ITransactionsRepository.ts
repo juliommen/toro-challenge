@@ -1,16 +1,16 @@
-import { InvestmentTransacition } from '../entities/InvestmentTransaction'
-import { TransferTransacition } from '../entities/TransferTransaction'
+import { InvestmentTransaction } from '../entities/InvestmentTransaction'
+import { TransferTransaction } from '../entities/TransferTransaction'
 
 interface CreateInvestmentResponse {
-  investmentTransaction: InvestmentTransacition
+  investmentTransaction: InvestmentTransaction
   balance: number
 }
 
 export interface ITransactionsRepository {
   createTransfer(
-    transferTransaction: TransferTransacition,
-  ): Promise<TransferTransacition>
+    transferTransaction: TransferTransaction,
+  ): Promise<TransferTransaction>
   createInvestment(
-    investmentTransaction: InvestmentTransacition,
+    investmentTransaction: InvestmentTransaction,
   ): Promise<CreateInvestmentResponse>
 }

@@ -7,7 +7,7 @@ interface InvestmentTransactionProps {
   quantity: number
 }
 
-export class InvestmentTransacition {
+export class InvestmentTransaction {
   static INVESTMENT_TRANSACTION_EVENT = 'INVESTMENT'
 
   private _event: string
@@ -73,7 +73,7 @@ export class InvestmentTransacition {
     stock,
     quantity,
   }: InvestmentTransactionProps): string | null {
-    if (event !== InvestmentTransacition.INVESTMENT_TRANSACTION_EVENT) {
+    if (event !== InvestmentTransaction.INVESTMENT_TRANSACTION_EVENT) {
       return 'event'
     }
     if (!ValidatorHelper.checkPositiveInteger(quantity)) {

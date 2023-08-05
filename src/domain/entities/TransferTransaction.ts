@@ -20,7 +20,7 @@ interface TransferTransactionProps {
   amount: number
 }
 
-export class TransferTransacition {
+export class TransferTransaction {
   static TRANSFER_TRANSACTION_EVENT = 'TRANSFER'
   static TARGET_BANK = '352'
   static TARGET_BRANCH = '0001'
@@ -74,7 +74,7 @@ export class TransferTransacition {
     if (!ValidatorHelper.checkPositiveInteger(amount * 100)) {
       return 'amount'
     }
-    if (event !== TransferTransacition.TRANSFER_TRANSACTION_EVENT) {
+    if (event !== TransferTransaction.TRANSFER_TRANSACTION_EVENT) {
       return 'event'
     }
     if (!origin) {
@@ -95,10 +95,10 @@ export class TransferTransacition {
     if (!ValidatorHelper.checkConvertionToPositiveInt(target.account)) {
       return 'target.account'
     }
-    if (target.bank !== TransferTransacition.TARGET_BANK) {
+    if (target.bank !== TransferTransaction.TARGET_BANK) {
       return 'target.bank'
     }
-    if (target.branch !== TransferTransacition.TARGET_BRANCH) {
+    if (target.branch !== TransferTransaction.TARGET_BRANCH) {
       return 'target.branch'
     }
     return null

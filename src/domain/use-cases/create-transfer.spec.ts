@@ -3,7 +3,7 @@ import { beforeAll, describe, expect, it } from 'vitest'
 import { UserAccount } from '../entities/UserAccount'
 import { CreateTransferUseCase } from './create-transfer'
 import { TransactionsRepository } from '@/providers/database/in-memory/TransactionsRepository'
-import { TransferTransacition } from '../entities/TransferTransaction'
+import { TransferTransaction } from '../entities/TransferTransaction'
 import { AppError } from '../errors/AppError'
 
 const VALID_CPF = '36577946035'
@@ -14,8 +14,8 @@ let createTransferUseCase: CreateTransferUseCase
 
 describe('Create transfer transaction integration tests', () => {
   beforeAll(async () => {
-    userAccountRepository = new UserAccountRepository()
-    transactionsRepository = new TransactionsRepository()
+    userAccountRepository = UserAccountRepository.getInstance()
+    transactionsRepository = TransactionsRepository.getInstance()
     createTransferUseCase = new CreateTransferUseCase(
       transactionsRepository,
       userAccountRepository,
@@ -28,17 +28,17 @@ describe('Create transfer transaction integration tests', () => {
     await userAccountRepository.create(userAccount)
 
     const validTransferTransactionData = {
-      event: TransferTransacition.TRANSFER_TRANSACTION_EVENT,
+      event: TransferTransaction.TRANSFER_TRANSACTION_EVENT,
       amount: 1000,
       target: {
         account: '1',
-        bank: TransferTransacition.TARGET_BANK,
-        branch: TransferTransacition.TARGET_BRANCH,
+        bank: TransferTransaction.TARGET_BANK,
+        branch: TransferTransaction.TARGET_BRANCH,
       },
       origin: { bank: '0002', branch: '353', cpf: VALID_CPF },
     }
 
-    const transferTransaction = new TransferTransacition(
+    const transferTransaction = new TransferTransaction(
       validTransferTransactionData,
     )
 
@@ -46,26 +46,33 @@ describe('Create transfer transaction integration tests', () => {
       transferTransaction,
     )
 
+    console.log(userAccount)
+
     expect(createdTransfer).toEqual(
       expect.objectContaining({
         _accountNumber: transferTransaction.accountNumber,
+      }),
+    )
+    expect(userAccount).toEqual(
+      expect.objectContaining({
+        _balance: createdTransfer.amount,
       }),
     )
   })
 
   it('should not be able to create a new transfer for a non existing account', async () => {
     const validTransferTransactionData = {
-      event: TransferTransacition.TRANSFER_TRANSACTION_EVENT,
+      event: TransferTransaction.TRANSFER_TRANSACTION_EVENT,
       amount: 1000,
       target: {
         account: '2',
-        bank: TransferTransacition.TARGET_BANK,
-        branch: TransferTransacition.TARGET_BRANCH,
+        bank: TransferTransaction.TARGET_BANK,
+        branch: TransferTransaction.TARGET_BRANCH,
       },
       origin: { bank: '0002', branch: '353', cpf: VALID_CPF },
     }
 
-    const transferTransaction = new TransferTransacition(
+    const transferTransaction = new TransferTransaction(
       validTransferTransactionData,
     )
 
