@@ -10,7 +10,7 @@ let transactionsRepository: TransactionsRepository
 let userAccountRepository: UserAccountRepository
 let createTransferUseCase: CreateTransferUseCase
 
-describe('Create transfer transaction account integration tests', () => {
+describe('Create transfer transaction integration tests', () => {
   beforeAll(async () => {
     userAccountRepository = new UserAccountRepository()
     transactionsRepository = new TransactionsRepository()
