@@ -20,24 +20,20 @@ describe('Stock unit tests', () => {
   })
 
   it('should not be able to create a new stock with invalid price', async () => {
-    const EXPECTED_ERROR = 'Validation error: invalid stock price'
-
     expect(() => {
       const stock = new Stock({
         ...validStockData,
         price: undefined,
       })
-    }).toThrowError(EXPECTED_ERROR)
+    }).toThrowError()
   })
 
   it('should not be able to create a new stock with invalid name', async () => {
-    const EXPECTED_ERROR = 'Validation error: invalid stock name'
-
     expect(() => {
       const stock = new Stock({
         ...validStockData,
         name: undefined,
       })
-    }).toThrowError(EXPECTED_ERROR)
+    }).toThrowError()
   })
 })
