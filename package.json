@@ -4,7 +4,10 @@
   "description": "Investment Serverless API - Technical Challenge",
   "main": "serverless.ts",
   "scripts": {
-    "test": "vitest run --dir src/domain/"
+    "test": "vitest run --dir src/domain/",
+    "install:db": "sls dynamodb install",
+    "start:db": "sls dynamodb start",
+    "dev": "sls offline"
   },
   "engines": {
     "node": ">=14.15.0"
