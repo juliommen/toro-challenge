@@ -26,7 +26,7 @@ describe('Transfer transaction unit tests', () => {
       expect.objectContaining({
         _event: validTransferTransactionData.event,
         _amount: validTransferTransactionData.amount * 100,
-        _target: validTransferTransactionData.target,
+        _accountNumber: Number(validTransferTransactionData.target.account),
         _origin: validTransferTransactionData.origin,
         _createdAt: expect.any(Number),
       }),

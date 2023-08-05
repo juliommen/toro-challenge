@@ -26,7 +26,7 @@ export class TransferTransacition {
   static TARGET_BRANCH = '0001'
 
   private _event: string
-  private _target: Target
+  private _accountNumber: number
   private _origin: Origin
   private _amount: number
   private _createdAt: number
@@ -40,13 +40,9 @@ export class TransferTransacition {
 
     this._event = props.event
     this._amount = props.amount * 100
-    this._target = props.target
+    this._accountNumber = Number(props.target.account)
     this._origin = props.origin
     this._createdAt = new Date().getTime()
-  }
-
-  get target() {
-    return this._target
   }
 
   get origin() {
@@ -63,6 +59,10 @@ export class TransferTransacition {
 
   get createdAt() {
     return this._createdAt
+  }
+
+  get accountNumber() {
+    return this._accountNumber
   }
 
   private validateInput({
