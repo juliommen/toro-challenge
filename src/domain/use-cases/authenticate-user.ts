@@ -1,4 +1,3 @@
-import { UserAccount } from '../entities/UserAccount'
 import { AppError } from '../errors/AppError'
 import { IUserAccountRepository } from '../interfaces/IUserAccountRepository'
 
