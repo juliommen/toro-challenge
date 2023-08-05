@@ -1,6 +1,6 @@
 export class ValidatorHelper {
   static checkCpfValidation(cpf: string): boolean {
-    if (cpf && typeof cpf === 'string' && cpf.length === 11) {
+    if (typeof cpf === 'string' && cpf.length === 11) {
       const doesTheCpfContainOnlyDigits = /^\d+$/.test(cpf)
 
       if (!doesTheCpfContainOnlyDigits) {
