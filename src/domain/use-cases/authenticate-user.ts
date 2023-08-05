@@ -2,11 +2,7 @@ import { AppError } from '../errors/AppError'
 import { IUserAccountRepository } from '../interfaces/IUserAccountRepository'
 
 export class AuthenticateUserUseCase {
-  private userAccountRepository: IUserAccountRepository
-
-  constructor(userAccountRepository: IUserAccountRepository) {
-    this.userAccountRepository = userAccountRepository
-  }
+  constructor(private userAccountRepository: IUserAccountRepository) {}
 
   async execute(cpf: string) {
     const account = await this.userAccountRepository.findByCpf(cpf)
