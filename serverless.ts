@@ -3,7 +3,7 @@ import type { AWS } from '@serverless/typescript'
 const serverlessConfiguration: AWS = {
   service: 'toro-challenge',
   frameworkVersion: '3',
-  plugins: ['serverless-esbuild', 'serverless-offline'],
+  plugins: ['serverless-esbuild', 'serverless-dynamodb', 'serverless-offline'],
   provider: {
     name: 'aws',
     runtime: 'nodejs14.x',
@@ -29,6 +29,15 @@ const serverlessConfiguration: AWS = {
       define: { 'require.resolve': undefined },
       platform: 'node',
       concurrency: 10,
+    },
+    dynamodb: {
+      stages: ['dev'],
+      start: {
+        port: 8000,
+        inMemory: true,
+        migrate: true,
+        seed: true,
+      },
     },
   },
 }
