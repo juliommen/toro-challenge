@@ -1,11 +1,14 @@
 import 'express-async-errors'
 import express, { NextFunction, Request, Response } from 'express'
+import { router } from './routes'
 import { AppError } from '@/domain/errors/AppError'
 import { DomainError } from '@/domain/errors/DomainError'
 
 const app = express()
 
 app.use(express.json())
+
+app.use(router)
 
 app.use((err: Error, req: Request, res: Response, _: NextFunction) => {
   if (err instanceof AppError) {
