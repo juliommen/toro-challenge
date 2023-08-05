@@ -46,4 +46,14 @@ describe('User account unit tests', () => {
       userAccount.balance = invalidBalance
     }).toThrowError(DomainError)
   })
+
+  it('should not be able to set an invalid create at stamp to a user account', async () => {
+    const userAccount = new UserAccount(VALID_CPF)
+
+    const invalidCreatedAt = -1
+
+    expect(() => {
+      userAccount.createdAt = invalidCreatedAt
+    }).toThrowError(DomainError)
+  })
 })

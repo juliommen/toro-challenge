@@ -49,6 +49,13 @@ export class UserAccount {
     return this._createdAt
   }
 
+  set createdAt(createdAt: number) {
+    if (!ValidatorHelper.checkPositiveInteger(createdAt)) {
+      throw new DomainError('user account', 'created at')
+    }
+    this._createdAt = createdAt
+  }
+
   validateInput(cpf: string): string | null {
     if (!ValidatorHelper.checkCpfValidation(cpf)) {
       return 'cpf'
