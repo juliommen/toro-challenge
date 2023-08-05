@@ -1,23 +1,23 @@
 
 [
   {
-    "name":"PETR3",
+    "stock_name":"PETR3",
     "price":4000
   },
   {
-    "name":"PETRA4",
+    "stock_name":"PETR4",
     "price":5000
   },
   {
-    "name":"VALE3",
+    "stock_name":"VALE3",
     "price":6000
   },
   {
-    "name":"ABEV3",
+    "stock_name":"ABEV3",
     "price":7000
   },
   {
-    "name":"SANB11",
+    "stock_name":"SANB11",
     "price":8000
   }
 ]
