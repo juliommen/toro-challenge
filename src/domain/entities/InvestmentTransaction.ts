@@ -12,6 +12,7 @@ export class InvestmentTransacition {
   static INVESTMENT_TRANSACTION_EVENT = 'INVESTMENT'
 
   private _event: string
+  private _accountNumber: number
   private _stock: string
   private _price: number
   private _quantity: number
@@ -33,6 +34,17 @@ export class InvestmentTransacition {
 
   get stock() {
     return this._stock
+  }
+
+  set accountNumber(accountNumber: number) {
+    if (!ValidatorHelper.checkPositiveInteger(accountNumber)) {
+      throw new DomainError('investment transaction', 'accountNumber')
+    }
+    this._accountNumber = accountNumber
+  }
+
+  get accountNumber() {
+    return this._accountNumber
   }
 
   get price() {
@@ -69,6 +81,7 @@ export class InvestmentTransacition {
     if (typeof stock !== 'string') {
       return 'stock'
     }
+
     return null
   }
 }

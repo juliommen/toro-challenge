@@ -34,12 +34,6 @@ describe('Investment transaction unit tests', () => {
         event: 'TEST',
       })
     }).toThrowError(DomainError)
-    expect(() => {
-      const investmentTransaction = new InvestmentTransacition({
-        ...validInvestmentTransactionData,
-        event: undefined,
-      })
-    }).toThrowError(DomainError)
   })
 
   it('should not be able to create a new investment transaction with invalid quantity', async () => {
@@ -66,6 +60,15 @@ describe('Investment transaction unit tests', () => {
         ...validInvestmentTransactionData,
         stock: undefined,
       })
+    }).toThrowError(DomainError)
+  })
+
+  it('should not be able to set a invalid account number to an investment transaction', async () => {
+    const investmentTransaction = new InvestmentTransacition(
+      validInvestmentTransactionData,
+    )
+    expect(() => {
+      investmentTransaction.accountNumber = '1' as any
     }).toThrowError(DomainError)
   })
 })
