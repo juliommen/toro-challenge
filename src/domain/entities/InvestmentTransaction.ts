@@ -4,7 +4,6 @@ import { ValidatorHelper } from './utils/ValidationHelper'
 interface InvestmentTransactionProps {
   event: string
   stock: string
-  price: number
   quantity: number
 }
 
@@ -27,7 +26,6 @@ export class InvestmentTransacition {
 
     this._event = props.event
     this._stock = props.stock
-    this._price = props.price
     this._quantity = props.quantity
     this._createdAt = new Date().getTime()
   }
@@ -51,6 +49,13 @@ export class InvestmentTransacition {
     return this._price
   }
 
+  set price(price: number) {
+    if (!ValidatorHelper.checkPositiveInteger(price)) {
+      throw new DomainError('investment transaction', 'price')
+    }
+    this._price = price
+  }
+
   get quantity() {
     return this._quantity
   }
@@ -66,7 +71,6 @@ export class InvestmentTransacition {
   private validateInput({
     event,
     stock,
-    price,
     quantity,
   }: InvestmentTransactionProps): string | null {
     if (event !== InvestmentTransacition.INVESTMENT_TRANSACTION_EVENT) {
@@ -74,9 +78,6 @@ export class InvestmentTransacition {
     }
     if (!ValidatorHelper.checkPositiveInteger(quantity)) {
       return 'quantity'
-    }
-    if (!ValidatorHelper.checkPositiveInteger(price)) {
-      return 'price'
     }
     if (typeof stock !== 'string') {
       return 'stock'
