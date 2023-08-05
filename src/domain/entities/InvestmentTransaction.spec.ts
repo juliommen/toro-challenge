@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, expect, it } from 'vitest'
 import { InvestmentTransacition } from './InvestmentTransaction'
+import { DomainError } from '../errors/DomainError'
 
 const validInvestmentTransactionData = {
   event: InvestmentTransacition.INVESTMENT_TRANSACTION_EVENT,
@@ -32,13 +33,13 @@ describe('Investment transaction unit tests', () => {
         ...validInvestmentTransactionData,
         event: 'TEST',
       })
-    }).toThrowError()
+    }).toThrowError(DomainError)
     expect(() => {
       const investmentTransaction = new InvestmentTransacition({
         ...validInvestmentTransactionData,
         event: undefined,
       })
-    }).toThrowError()
+    }).toThrowError(DomainError)
   })
 
   it('should not be able to create a new investment transaction with invalid quantity', async () => {
@@ -47,7 +48,7 @@ describe('Investment transaction unit tests', () => {
         ...validInvestmentTransactionData,
         quantity: undefined,
       })
-    }).toThrowError()
+    }).toThrowError(DomainError)
   })
 
   it('should not be able to create a new investment transaction with invalid price', async () => {
@@ -56,7 +57,7 @@ describe('Investment transaction unit tests', () => {
         ...validInvestmentTransactionData,
         price: undefined,
       })
-    }).toThrowError()
+    }).toThrowError(DomainError)
   })
 
   it('should not be able to create a new investment transaction with invalid stock', async () => {
@@ -65,6 +66,6 @@ describe('Investment transaction unit tests', () => {
         ...validInvestmentTransactionData,
         stock: undefined,
       })
-    }).toThrowError()
+    }).toThrowError(DomainError)
   })
 })

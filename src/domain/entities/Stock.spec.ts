@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, expect, it } from 'vitest'
 import { Stock } from './Stock'
+import { DomainError } from '../errors/DomainError'
 
 const validStockData = {
   name: 'TEST',
@@ -25,7 +26,7 @@ describe('Stock unit tests', () => {
         ...validStockData,
         price: undefined,
       })
-    }).toThrowError()
+    }).toThrowError(DomainError)
   })
 
   it('should not be able to create a new stock with invalid name', async () => {
@@ -34,6 +35,6 @@ describe('Stock unit tests', () => {
         ...validStockData,
         name: undefined,
       })
-    }).toThrowError()
+    }).toThrowError(DomainError)
   })
 })

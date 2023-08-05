@@ -2,6 +2,7 @@ import { UserAccountRepository } from '@/providers/database/in-memory/UserAccoun
 import { beforeAll, describe, expect, it } from 'vitest'
 import { UserAccount } from '../entities/UserAccount'
 import { CreateUserAccountUseCase } from './create-user-account'
+import { AppError } from '../errors/AppError'
 
 let userAccountRepository: UserAccountRepository
 let userAccountUserCase: CreateUserAccountUseCase
@@ -28,7 +29,7 @@ describe('Create user account integration tests', () => {
 
     expect(
       async () => await userAccountUserCase.execute(newUserAccount),
-    ).rejects.toThrowError()
+    ).rejects.toThrowError(AppError)
   })
 
   it('should be able to create a new user account with incremented account number', async () => {

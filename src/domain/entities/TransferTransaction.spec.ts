@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, expect, it } from 'vitest'
 import { TransferTransacition } from './TransferTransaction'
+import { DomainError } from '../errors/DomainError'
 
 const VALID_CPF = '36577946035'
 
@@ -44,14 +45,14 @@ describe('Transfer transaction unit tests', () => {
         ...validTransferTransactionData,
         amount: undefined as any,
       })
-    }).toThrowError()
+    }).toThrowError(DomainError)
 
     expect(() => {
       const transferTransaction = new TransferTransacition({
         ...validTransferTransactionData,
         amount: 0 as any,
       })
-    }).toThrowError()
+    }).toThrowError(DomainError)
   })
 
   it('should not be able to create a new transfer transaction with invalid event', async () => {
@@ -66,14 +67,14 @@ describe('Transfer transaction unit tests', () => {
         ...validTransferTransactionData,
         event: undefined as any,
       })
-    }).toThrowError()
+    }).toThrowError(DomainError)
 
     expect(() => {
       const transferTransaction = new TransferTransacition({
         ...validTransferTransactionData,
         event: 'TEST' as any,
       })
-    }).toThrowError()
+    }).toThrowError(DomainError)
   })
 
   it('should not be able to create a new transfer transaction with invalid origin', async () => {
@@ -82,7 +83,7 @@ describe('Transfer transaction unit tests', () => {
         ...validTransferTransactionData,
         origin: undefined as any,
       })
-    }).toThrowError()
+    }).toThrowError(DomainError)
   })
 
   it('should not be able to create a new transfer transaction with invalid origin bank', async () => {
@@ -91,7 +92,7 @@ describe('Transfer transaction unit tests', () => {
         ...validTransferTransactionData,
         origin: { bank: undefined as any, branch: '1', cpf: VALID_CPF },
       })
-    }).toThrowError()
+    }).toThrowError(DomainError)
   })
 
   it('should not be able to create a new transfer transaction with invalid origin branch', async () => {
@@ -100,7 +101,7 @@ describe('Transfer transaction unit tests', () => {
         ...validTransferTransactionData,
         origin: { bank: '1', branch: undefined as any, cpf: VALID_CPF },
       })
-    }).toThrowError()
+    }).toThrowError(DomainError)
   })
 
   it('should not be able to create a new transfer transaction with invalid origin cpf', async () => {
@@ -109,7 +110,7 @@ describe('Transfer transaction unit tests', () => {
         ...validTransferTransactionData,
         origin: { bank: '1', branch: '1', cpf: undefined as any },
       })
-    }).toThrowError()
+    }).toThrowError(DomainError)
   })
 
   it('should not be able to create a new transfer transaction with invalid target', async () => {
@@ -118,7 +119,7 @@ describe('Transfer transaction unit tests', () => {
         ...validTransferTransactionData,
         target: undefined as any,
       })
-    }).toThrowError()
+    }).toThrowError(DomainError)
   })
 
   it('should not be able to create a new transfer transaction with invalid target bank', async () => {
@@ -131,7 +132,7 @@ describe('Transfer transaction unit tests', () => {
           account: '1',
         },
       })
-    }).toThrowError()
+    }).toThrowError(DomainError)
   })
 
   it('should not be able to create a new transfer transaction with invalid target branch', async () => {
@@ -144,7 +145,7 @@ describe('Transfer transaction unit tests', () => {
           account: '1',
         },
       })
-    }).toThrowError()
+    }).toThrowError(DomainError)
   })
 
   it('should not be able to create a new transfer transaction with invalid target account', async () => {
@@ -157,6 +158,6 @@ describe('Transfer transaction unit tests', () => {
           account: undefined as any,
         },
       })
-    }).toThrowError()
+    }).toThrowError(DomainError)
   })
 })

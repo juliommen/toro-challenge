@@ -1,8 +1,8 @@
 import { UserAccountRepository } from '@/providers/database/in-memory/UserAccountRepository'
 import { beforeAll, describe, expect, it } from 'vitest'
 import { UserAccount } from '../entities/UserAccount'
-import { CreateUserAccountUseCase } from './create-user-account'
 import { AuthenticateUserUseCase } from './authenticate-user'
+import { AppError } from '../errors/AppError'
 
 let userAccountRepository: UserAccountRepository
 let authenticateUserCase: AuthenticateUserUseCase
@@ -33,6 +33,6 @@ describe('Authenticate user integration tests', () => {
   it('should not be able to authenticate a user with invalid credentials', async () => {
     expect(
       async () => await authenticateUserCase.execute('123456789'),
-    ).rejects.toThrowError()
+    ).rejects.toThrowError(AppError)
   })
 })

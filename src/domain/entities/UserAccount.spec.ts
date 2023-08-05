@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, expect, it } from 'vitest'
 import { UserAccount } from './UserAccount'
+import { DomainError } from '../errors/DomainError'
 
 describe('User account unit tests', () => {
   it('should be able to create a new user account with a CPF', async () => {
@@ -12,7 +13,7 @@ describe('User account unit tests', () => {
   it('should not be able to create a new user account with an invalid CPF', async () => {
     expect(() => {
       const userAccount = new UserAccount('3657794603')
-    }).toThrowError()
+    }).toThrowError(DomainError)
   })
 
   it('should be able to set an account number to a user account', async () => {
@@ -33,6 +34,6 @@ describe('User account unit tests', () => {
 
     expect(() => {
       userAccount.accountNumber = accountNumber
-    }).toThrowError()
+    }).toThrowError(DomainError)
   })
 })
