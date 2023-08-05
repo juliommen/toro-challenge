@@ -36,4 +36,14 @@ describe('User account unit tests', () => {
       userAccount.accountNumber = invalidAccountNumber
     }).toThrowError(DomainError)
   })
+
+  it('should not be able to set an invalid balance to a user account', async () => {
+    const userAccount = new UserAccount(VALID_CPF)
+
+    const invalidBalance = -1
+
+    expect(() => {
+      userAccount.balance = invalidBalance
+    }).toThrowError(DomainError)
+  })
 })

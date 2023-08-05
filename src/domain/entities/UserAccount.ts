@@ -4,6 +4,7 @@ import { ValidatorHelper } from './utils/ValidationHelper'
 export class UserAccount {
   private _cpf: string
   private _accountNumber: number
+  private _balance: number
   private _createdAt: number
 
   constructor(cpf: string) {
@@ -30,6 +31,17 @@ export class UserAccount {
       throw new DomainError('user account', 'number')
     }
     this._accountNumber = accountNumber
+  }
+
+  get balance(): number {
+    return this._balance
+  }
+
+  set balance(balance: number) {
+    if (!ValidatorHelper.checkPositiveInteger(balance)) {
+      throw new DomainError('user account', 'balance')
+    }
+    this._balance = balance
   }
 
   get createdAt(): number {
