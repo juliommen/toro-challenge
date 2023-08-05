@@ -1,0 +1,23 @@
+
+[
+  {
+    "stock":"PETR3",
+    "price":4000
+  },
+  {
+    "stock":"PETRA4",
+    "price":5000
+  },
+  {
+    "stock":"VALE3",
+    "price":6000
+  },
+  {
+    "stock":"ABEV3",
+    "price":7000
+  },
+  {
+    "stock":"SANB11",
+    "price":8000
+  }
+]

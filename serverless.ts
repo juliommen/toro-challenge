@@ -39,6 +39,40 @@ const serverlessConfiguration: AWS = {
         seed: true,
       },
     },
+    seed: {
+      StockSeed: {
+        sources: {
+          table: 'stock',
+          sources: ['./src/utils/stock-seed.json'],
+        },
+      },
+    },
+  },
+  resources: {
+    Resources: {
+      StockTable: {
+        Type: 'AWS::DynamoDB::Table',
+        Properties: {
+          TableName: 'stock',
+          AttributeDefinitions: [
+            {
+              AttributeName: 'name',
+              AttributeType: 'S',
+            },
+          ],
+          KeySchema: [
+            {
+              AttributeName: 'name',
+              KeyType: 'HASH',
+            },
+          ],
+          ProvisionedThroughput: {
+            ReadCapacityUnits: 5,
+            WriteCapacityUnits: 5,
+          },
+        },
+      },
+    },
   },
 }
 
