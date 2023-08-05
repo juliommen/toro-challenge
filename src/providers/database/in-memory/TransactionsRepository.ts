@@ -1,43 +1,45 @@
 import { InvestmentTransacition } from '@/domain/entities/InvestmentTransaction'
 import { TransferTransacition } from '@/domain/entities/TransferTransaction'
 import { ITransactionsRepository } from '@/domain/interfaces/ITransactionsRepository'
+import { UserAccountRepository } from './UserAccountRepository'
 
 export class TransactionsRepository implements ITransactionsRepository {
   private transactions: (InvestmentTransacition | TransferTransacition)[]
 
-  constructor() {
+  private constructor() {
     this.transactions = []
+  }
+
+  static getInstance() {
+    if (!singletonInstance) {
+      singletonInstance = new TransactionsRepository()
+    }
+    return singletonInstance
   }
 
   async createTransfer(transferTransaction: TransferTransacition) {
     this.transactions.push(transferTransaction)
+    const userAccount =
+      await UserAccountRepository.getInstance().findByAccountNumber(
+        transferTransaction.accountNumber,
+      )
+    userAccount.balance += transferTransaction.amount
     return transferTransaction
   }
 
   async createInvestment(investmentTransaction: InvestmentTransacition) {
     this.transactions.push(investmentTransaction)
-    return investmentTransaction
-  }
 
-  async getBalance(accountNumber: number) {
-    const totalBalance = this.transactions.reduce((balance, transaction) => {
-      if (transaction.accountNumber === accountNumber) {
-        if (
-          transaction.event === TransferTransacition.TRANSFER_TRANSACTION_EVENT
-        ) {
-          const transfer = transaction as TransferTransacition
-          const transferAmount = transfer.amount
-          return balance + transferAmount
-        } else {
-          const investment = transaction as InvestmentTransacition
-          const investmentAmount = investment.price * investment.quantity
-          return balance - investmentAmount
-        }
-      } else {
-        return balance
-      }
-    }, 0)
+    const amount = investmentTransaction.price * investmentTransaction.quantity
+    const userAccount =
+      await UserAccountRepository.getInstance().findByAccountNumber(
+        investmentTransaction.accountNumber,
+      )
 
-    return totalBalance
+    userAccount.balance -= amount
+
+    return { investmentTransaction, balance: userAccount.balance }
   }
 }
+
+let singletonInstance: TransactionsRepository | null = null

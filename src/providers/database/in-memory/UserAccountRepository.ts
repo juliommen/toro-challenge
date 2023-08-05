@@ -3,8 +3,16 @@ import { IUserAccountRepository } from '@/domain/interfaces/IUserAccountReposito
 
 export class UserAccountRepository implements IUserAccountRepository {
   private userAccount: UserAccount[]
-  constructor() {
+
+  private constructor() {
     this.userAccount = []
+  }
+
+  static getInstance() {
+    if (!singletonInstance) {
+      singletonInstance = new UserAccountRepository()
+    }
+    return singletonInstance
   }
 
   async create(userAccount: UserAccount) {
@@ -29,3 +37,5 @@ export class UserAccountRepository implements IUserAccountRepository {
     return lastAccountNumber
   }
 }
+
+let singletonInstance: UserAccountRepository | null = null

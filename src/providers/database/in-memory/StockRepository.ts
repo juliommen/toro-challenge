@@ -4,8 +4,15 @@ import { IStockRepository } from '@/domain/interfaces/IStockRepository'
 export class StockRepository implements IStockRepository {
   private stocks: Stock[]
 
-  constructor() {
+  private constructor() {
     this.stocks = [new Stock({ name: 'PETR4', price: 4000 })]
+  }
+
+  static getInstance(): StockRepository {
+    if (!singletonInstance) {
+      singletonInstance = new StockRepository()
+    }
+    return singletonInstance
   }
 
   async findByName(name: string) {
@@ -13,3 +20,5 @@ export class StockRepository implements IStockRepository {
     return stock
   }
 }
+
+let singletonInstance: StockRepository | null = null
