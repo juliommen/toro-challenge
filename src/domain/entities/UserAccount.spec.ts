@@ -24,4 +24,15 @@ describe('User account unit tests', () => {
 
     expect(userAccount.accountNumber).toEqual(accountNumber)
   })
+
+  it('should not be able to set an invalid account number to a user account', async () => {
+    const cpf = '36577946035'
+    const userAccount = new UserAccount(cpf)
+
+    const accountNumber = '123456789' as any
+
+    expect(() => {
+      userAccount.accountNumber = accountNumber
+    }).toThrowError()
+  })
 })
