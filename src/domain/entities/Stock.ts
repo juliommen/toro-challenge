@@ -1,3 +1,4 @@
+import { DomainError } from '../errors/DomainError'
 import { ValidatorHelper } from './utils/ValidationHelper'
 
 interface StockProps {
@@ -13,7 +14,7 @@ export class Stock {
     const validationResult = this.validateInput(props)
 
     if (validationResult) {
-      throw new Error(`Validation error: invalid stock ${validationResult}`)
+      throw new DomainError('stock', validationResult)
     }
 
     this._name = props.name
