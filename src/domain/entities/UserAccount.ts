@@ -1,3 +1,4 @@
+import { DomainError } from '../errors/DomainError'
 import { ValidatorHelper } from './utils/ValidationHelper'
 
 export class UserAccount {
@@ -6,10 +7,10 @@ export class UserAccount {
   private _createdAt: number
 
   constructor(cpf: string) {
-    const isValidCpf = ValidatorHelper.checkCpfValidation(cpf)
+    const validationResult = this.validateInput(cpf)
 
-    if (!isValidCpf) {
-      throw new Error('Validation error: invalid user account cpf')
+    if (validationResult) {
+      throw new DomainError('user account', validationResult)
     }
 
     this._cpf = cpf
@@ -24,14 +25,21 @@ export class UserAccount {
     return this._accountNumber
   }
 
-  set accountNumber(account: number) {
-    if (!ValidatorHelper.checkPositiveInteger(account)) {
-      throw new Error('Validation error: invalid user account number')
+  set accountNumber(accountNumber: number) {
+    if (!ValidatorHelper.checkPositiveInteger(accountNumber)) {
+      throw new DomainError('user account', 'number')
     }
-    this._accountNumber = account
+    this._accountNumber = accountNumber
   }
 
   get createdAt(): number {
     return this._createdAt
+  }
+
+  validateInput(cpf: string): string | null {
+    if (!ValidatorHelper.checkCpfValidation(cpf)) {
+      return 'cpf'
+    }
+    return null
   }
 }
