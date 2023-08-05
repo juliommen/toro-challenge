@@ -17,7 +17,16 @@ const serverlessConfiguration: AWS = {
     },
   },
 
-  functions: {},
+  functions: {
+    api: {
+      handler: 'src/http/server.handler',
+      events: [
+        {
+          http: { path: '/user/account', method: 'post', cors: true },
+        },
+      ],
+    },
+  },
   package: { individually: true },
   custom: {
     'serverless-offline': {
@@ -91,7 +100,7 @@ const serverlessConfiguration: AWS = {
                 },
               ],
               Projection: {
-                ProjectionType: 'KEYS_ONLY',
+                ProjectionType: 'ALL',
               },
               ProvisionedThroughput: {
                 ReadCapacityUnits: 5,
