@@ -1,39 +1,39 @@
 import { ValidatorHelper } from './utils/ValidationHelper'
 
 interface StockProps {
-  stock: string
+  name: string
   price: number
 }
 
 export class Stock {
-  private _stock: string
+  private _name: string
   private _price: number
 
   constructor(props: StockProps) {
     const validationResult = this.validateInput(props)
 
     if (validationResult) {
-      throw new Error(`Validation error: invalid ${validationResult}`)
+      throw new Error(`Validation error: invalid stock ${validationResult}`)
     }
 
-    this._stock = props.stock
+    this._name = props.name
     this._price = props.price
   }
 
-  get stock(): string {
-    return this._stock
+  get name(): string {
+    return this._name
   }
 
   get price(): number {
     return this._price
   }
 
-  private validateInput({ price, stock }: StockProps): string | null {
+  private validateInput({ price, name }: StockProps): string | null {
     if (!ValidatorHelper.checkPositiveInteger(price)) {
       return 'price'
     }
-    if (typeof stock !== 'string') {
-      return 'stock'
+    if (typeof name !== 'string' || name.length <= 3) {
+      return 'name'
     }
 
     return null
