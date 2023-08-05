@@ -25,10 +25,10 @@ describe('User account unit tests', () => {
 
   it('should be able to correctly check if a value can be converted to integer', async () => {
     expect(ValidatorHelper.checkConvertionToInteger('123')).toEqual(true)
-    expect(ValidatorHelper.checkConvertionToInteger('0')).toEqual(true)
   })
 
   it('should be able to correctly check if a value cannot be converted to integer', async () => {
+    expect(ValidatorHelper.checkConvertionToInteger('0')).toEqual(false)
     expect(ValidatorHelper.checkConvertionToInteger('3-35')).toEqual(false)
     expect(ValidatorHelper.checkConvertionToInteger('1a')).toEqual(false)
     expect(ValidatorHelper.checkConvertionToInteger('1.1')).toEqual(false)

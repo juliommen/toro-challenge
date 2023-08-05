@@ -54,7 +54,8 @@ export class ValidatorHelper {
   static checkConvertionToInteger(value: string) {
     const isItString = typeof value === 'string'
     const doesItContainOnlyDigits = /^\d+$/.test(value)
-    return doesItContainOnlyDigits && isItString
+    const isItNotZero = value !== '0'
+    return doesItContainOnlyDigits && isItString && isItNotZero
   }
 
   static checkPositiveInteger(value: number) {
