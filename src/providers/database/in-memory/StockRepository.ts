@@ -5,7 +5,7 @@ export class StockRepository implements IStockRepository {
   private stocks: Stock[]
 
   constructor() {
-    this.stocks = []
+    this.stocks = [new Stock({ name: 'PETR4', price: 4000 })]
   }
 
   async findByName(name: string) {
