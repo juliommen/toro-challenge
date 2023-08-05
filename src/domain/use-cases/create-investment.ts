@@ -1,4 +1,4 @@
-import { InvestmentTransacition } from '../entities/InvestmentTransaction'
+import { InvestmentTransaction } from '../entities/InvestmentTransaction'
 import { AppError } from '../errors/AppError'
 import { IStockRepository } from '../interfaces/IStockRepository'
 import { ITransactionsRepository } from '../interfaces/ITransactionsRepository'
@@ -11,7 +11,7 @@ export class CreateInvestmentUseCase {
     private userAccountRepository: IUserAccountRepository,
   ) {}
 
-  async execute(investmentTransaction: InvestmentTransacition, cpf: string) {
+  async execute(investmentTransaction: InvestmentTransaction, cpf: string) {
     const userAccount = await this.userAccountRepository.findByCpf(cpf)
     if (!userAccount) {
       throw new AppError('Invalid credentials')
@@ -27,9 +27,19 @@ export class CreateInvestmentUseCase {
     investmentTransaction.accountNumber = userAccount.accountNumber
     investmentTransaction.price = stock.price
 
-    const createdInvestment =
-      await this.transactionsRepository.createInvestment(investmentTransaction)
+    const investmentAmount =
+      investmentTransaction.price * investmentTransaction.quantity
 
-    return createdInvestment
+    const doesUserHasSufficientFunds = userAccount.balance >= investmentAmount
+
+    if (!doesUserHasSufficientFunds) {
+      throw new AppError('User does not have sufficient funds')
+    }
+
+    const result = await this.transactionsRepository.createInvestment(
+      investmentTransaction,
+    )
+
+    return result
   }
 }
