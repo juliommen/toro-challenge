@@ -25,6 +25,9 @@ export class UserAccount {
   }
 
   set accountNumber(account: number) {
+    if (!ValidatorHelper.checkPositiveInteger(account)) {
+      throw new Error('Invalid account number')
+    }
     this._accountNumber = account
   }
 }
