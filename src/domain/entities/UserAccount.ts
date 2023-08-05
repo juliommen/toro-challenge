@@ -39,7 +39,7 @@ export class UserAccount {
   }
 
   set balance(balance: number) {
-    if (!ValidatorHelper.checkPositiveInteger(balance)) {
+    if (typeof balance !== 'number' || balance < 0) {
       throw new DomainError('user account', 'balance')
     }
     this._balance = balance
