@@ -24,6 +24,12 @@ const serverlessConfiguration: AWS = {
         {
           http: { path: '/user/account', method: 'post', cors: true },
         },
+        {
+          http: { path: '/transaction/transfer', method: 'post', cors: true },
+        },
+        {
+          http: { path: '/transaction/investment', method: 'post', cors: true },
+        },
       ],
     },
   },
@@ -50,12 +56,12 @@ const serverlessConfiguration: AWS = {
         migrate: true,
         seed: true,
       },
-    },
-    seed: {
-      StockSeed: {
-        sources: {
-          table: 'stock',
-          sources: ['./src/utils/stock-seed.json'],
+      seed: {
+        StockSeed: {
+          sources: {
+            table: 'stock',
+            sources: ['./src/utils/stock-seed.json'],
+          },
         },
       },
     },
@@ -120,14 +126,44 @@ const serverlessConfiguration: AWS = {
           TableName: 'stock',
           AttributeDefinitions: [
             {
-              AttributeName: 'name',
+              AttributeName: 'stock_name',
               AttributeType: 'S',
             },
           ],
           KeySchema: [
             {
-              AttributeName: 'name',
+              AttributeName: 'stock_name',
               KeyType: 'HASH',
+            },
+          ],
+          ProvisionedThroughput: {
+            ReadCapacityUnits: 5,
+            WriteCapacityUnits: 5,
+          },
+        },
+      },
+      TransactionTable: {
+        Type: 'AWS::DynamoDB::Table',
+        Properties: {
+          TableName: 'transaction',
+          AttributeDefinitions: [
+            {
+              AttributeName: 'account_number',
+              AttributeType: 'N',
+            },
+            {
+              AttributeName: 'created_at',
+              AttributeType: 'N',
+            },
+          ],
+          KeySchema: [
+            {
+              AttributeName: 'account_number',
+              KeyType: 'HASH',
+            },
+            {
+              AttributeName: 'created_at',
+              KeyType: 'RANGE',
             },
           ],
           ProvisionedThroughput: {
