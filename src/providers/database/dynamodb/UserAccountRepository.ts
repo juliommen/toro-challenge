@@ -24,9 +24,11 @@ export class UserAccountRepository implements IUserAccountRepository {
   async findByAccountNumber(accountNumber: number) {
     const response = await DynamoClient.query({
       TableName: this.TABLE_NAME,
-      KeyConditionExpression: 'account_number = :account_number',
+      KeyConditionExpression:
+        'hash_key = :hash_key AND account_number = :account_number',
       ExpressionAttributeValues: {
         ':account_number': accountNumber,
+        ':hash_key': 0,
       },
     }).promise()
 
@@ -45,8 +47,6 @@ export class UserAccountRepository implements IUserAccountRepository {
         ':cpf': cpf,
       },
     }).promise()
-
-    console.log(response)
 
     if (response.Items && response.Items.length > 0) {
       return toUserAccount(response.Items[0] as IUserAccountOnDatabase)
