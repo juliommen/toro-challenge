@@ -57,6 +57,7 @@ custom:
       inMemory: true
       migrate: true
       seed: true
+      docker: true
     seed:
       LocalStockSeed:
         sources:
