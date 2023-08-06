@@ -22,15 +22,6 @@ jobs:
         with:
           node-version: 18
           cache: 'npm'
-      
-      - name: Install AWS CLI
-        run: |
-          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-          unzip awscliv2.zip
-          sudo ./aws/install
-
-      - name: Wait for DynamoDB to start
-        run: sleep 10
 
       - name: Create DynamoDB Table
         run: |
