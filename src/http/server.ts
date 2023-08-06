@@ -1,4 +1,5 @@
 import { app } from './app'
-import serverless from 'serverless-http'
 
-export const handler = serverless(app)
+app.listen(3333, () =>
+  console.log('Server is running on http://localhost:3333...'),
+)
