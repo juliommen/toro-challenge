@@ -20,7 +20,7 @@ provider:
       Resource: '*'
 functions:
   api:
-    handler: src/http/server.handler
+    handler: src/http/handler.handler
     events:
       - http:
           path: /user/account
