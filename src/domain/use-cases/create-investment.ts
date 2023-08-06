@@ -36,10 +36,11 @@ export class CreateInvestmentUseCase {
       throw new AppError('User does not have sufficient funds')
     }
 
-    const result = await this.transactionsRepository.createInvestment(
-      investmentTransaction,
-    )
+    const investmentTransactionCreated =
+      await this.transactionsRepository.createInvestment(investmentTransaction)
 
-    return result
+    const { balance } = await this.userAccountRepository.findByCpf(cpf)
+
+    return { investmentTransaction: investmentTransactionCreated, balance }
   }
 }
