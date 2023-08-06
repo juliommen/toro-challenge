@@ -1,10 +1,41 @@
-import { describe, expect, it } from 'vitest'
+import { afterAll, describe, expect, it } from 'vitest'
 import request from 'supertest'
 import { app } from '@/http/app'
+import { DynamoClient } from '@/providers/database/dynamodb/client'
 
 const VALID_CPF = '36577946035'
 
 describe('End-to-end tests for create user account and create transaction routes', () => {
+  afterAll(async () => {
+    const scanResult = await DynamoClient.scan({
+      TableName: 'transaction',
+    }).promise()
+    for (const item of scanResult.Items) {
+      await DynamoClient.delete({
+        TableName: 'transaction',
+        Key: {
+          account_number: item.account_number,
+          created_at: item.created_at,
+        },
+      }).promise()
+    }
+  })
+
+  afterAll(async () => {
+    const scanResult = await DynamoClient.scan({
+      TableName: 'user_account',
+    }).promise()
+    for (const item of scanResult.Items) {
+      await DynamoClient.delete({
+        TableName: 'user_account',
+        Key: {
+          account_number: item.account_number,
+          hash_key: item.hash_key,
+        },
+      }).promise()
+    }
+  })
+
   it('should be able to create a user account', async () => {
     const response = await request(app).post('/user/account').send({
       cpf: VALID_CPF,
