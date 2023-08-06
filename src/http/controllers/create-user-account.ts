@@ -11,5 +11,5 @@ export async function createUserAccountController(req: Request, res: Response) {
 
   const createdAccount = await createUserAccountUseCase.execute(userAccount)
 
-  return res.status(201).send({ createdAccount })
+  return res.status(201).json({ createdAccount })
 }
