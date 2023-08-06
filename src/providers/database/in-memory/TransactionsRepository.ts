@@ -45,7 +45,7 @@ export class TransactionsRepository implements ITransactionsRepository {
 
     userAccount.balance -= amount
 
-    return { investmentTransaction, balance: userAccount.balance }
+    return investmentTransaction
   }
 }
 
