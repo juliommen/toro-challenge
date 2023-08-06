@@ -58,6 +58,7 @@ custom:
       migrate: true
       seed: true
       docker: true
+      noStart: true
     seed:
       LocalStockSeed:
         sources:

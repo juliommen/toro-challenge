@@ -22,13 +22,10 @@ jobs:
         with:
           node-version: 18
           cache: 'npm'
-
-      - name: Create DynamoDB Table
-        run: |
-          aws dynamodb create-table --cli-input-json file://table-config.json --endpoint-url http://localhost:8000
-
+          
       - run: npm ci
       - run: npm run test
+      - run: sls dynamodb start
       - run: npm run test:e2e
 
 
