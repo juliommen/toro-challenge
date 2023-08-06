@@ -2,17 +2,18 @@ import { Request, Response } from 'express'
 import { ICreateTransferDTO } from '../dtos/ICreateTransferDTO'
 import { TransferTransaction } from '@/domain/entities/TransferTransaction'
 import { makeTransferUseCase } from '@/factories/create-transfer-use-case'
+import { formatReponse } from '../utils/formatResponse'
 
 export async function createTransferController(req: Request, res: Response) {
   const data = req.body as ICreateTransferDTO
 
-  const transfTransaction = new TransferTransaction(data)
+  const transferTransaction = new TransferTransaction(data)
 
   const createTransferUseCase = makeTransferUseCase()
 
-  const transferTransaction = await createTransferUseCase.execute(
-    transfTransaction,
-  )
+  const response = await createTransferUseCase.execute(transferTransaction)
 
-  return res.status(201).json({ transferTransaction })
+  const responseFormatted = formatReponse(response)
+
+  return res.status(201).json({ transferTransaction: responseFormatted })
 }
