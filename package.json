@@ -5,6 +5,7 @@
   "main": "serverless.ts",
   "scripts": {
     "test": "vitest run --dir src/domain/",
+    "test:e2e": "vitest run --dir src/http/",
     "install:db": "sls dynamodb install",
     "start:db": "sls dynamodb start",
     "dev": "sls offline"
