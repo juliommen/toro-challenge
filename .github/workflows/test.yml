@@ -7,6 +7,14 @@ jobs:
     name: Run Tests
     runs-on: ubuntu-latest
 
+    services:
+      dynamodb:
+        image: amazon/dynamodb-local
+        ports:
+          - '8000:8000'
+        options: >-
+          --volume=dynamodb-data:/data
+
     steps:
       - uses: actions/checkout@v3
 
@@ -14,10 +22,22 @@ jobs:
         with:
           node-version: 18
           cache: 'npm'
+      
+      - name: Install AWS CLI
+        run: |
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          sudo ./aws/install
+
+      - name: Wait for DynamoDB to start
+        run: sleep 10
+
+      - name: Create DynamoDB Table
+        run: |
+          aws dynamodb create-table --cli-input-json file://table-config.json --endpoint-url http://localhost:8000
 
       - run: npm ci
       - run: npm run test
-      - run: npm run start:db
       - run: npm run test:e2e
 
 
