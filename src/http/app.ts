@@ -1,4 +1,5 @@
 import 'express-async-errors'
+import 'dotenv/config'
 import express, { NextFunction, Request, Response } from 'express'
 import { router } from './routes'
 import { AppError } from '@/domain/errors/AppError'
