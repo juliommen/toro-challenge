@@ -9,7 +9,7 @@ const options = {
   },
 }
 
-const isOffline = process.env.IS_OFFLINE
+const isOffline = process.env.IS_OFFLINE || process.env.NODE_ENV === 'test'
 
 export const DynamoClient = isOffline
   ? new DynamoDB.DocumentClient(options)
