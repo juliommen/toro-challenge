@@ -3,7 +3,12 @@ import type { AWS } from '@serverless/typescript'
 const serverlessConfiguration: AWS = {
   service: 'toro-challenge',
   frameworkVersion: '3',
-  plugins: ['serverless-esbuild', 'serverless-dynamodb', 'serverless-offline'],
+  plugins: [
+    'serverless-esbuild',
+    'serverless-dynamodb',
+    'serverless-dynamodb-seed',
+    'serverless-offline',
+  ],
   provider: {
     name: 'aws',
     runtime: 'nodejs14.x',
@@ -57,12 +62,18 @@ const serverlessConfiguration: AWS = {
         seed: true,
       },
       seed: {
-        StockSeed: {
+        LocalStockSeed: {
           sources: {
             table: 'stock',
             sources: ['./src/utils/stock-seed.json'],
           },
         },
+      },
+    },
+    seed: {
+      DeployStockSeed: {
+        table: 'stock',
+        sources: ['./src/utils/stock-seed.json'],
       },
     },
   },
