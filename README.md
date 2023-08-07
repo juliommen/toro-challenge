@@ -1,4 +1,4 @@
-# INSTALLATION GUIDE
+# Installation Guide
 
 ## Installing Dependencies
 
@@ -13,7 +13,7 @@ In order to test the application locally, a DynamoDB instance must be setup.
 
 There are two options to setup a DynamoDB instance.
 
-1) Using Docker
+#### 1) Using Docker
 
 Pull the image:
 ```
@@ -25,9 +25,9 @@ docker pull amazon/dynamodb-local
 ```
 npm run start:db
 ```
-This will run the container and create the tables.
+This will run the container and create the tables properly.
 
-2) Using local DynamoDB instance
+#### 2) Using local DynamoDB instance
 
 Install database:
 ```
@@ -44,7 +44,7 @@ npm run start:db
 
 There are two options to run the application locally.
 
-1) Serverless Offline
+#### 1) Serverless Offline
 
 To start the application simulating the serverless environment, open a terminal window, and run:
 ```
@@ -52,12 +52,12 @@ npm run dev:sls
 ```
 
 Routes exposed:
-  - `POST`| http://localhost:3000/user/account                           
-  - `POST`| http://localhost:3000/transaction/transfer                   
-  - `POST`| http://localhost:3000/transaction/investment     
+  - `POST` | http://localhost:3000/user/account                           
+  - `POST` | http://localhost:3000/transaction/transfer                   
+  - `POST` | http://localhost:3000/transaction/investment     
 
 
-2) Express Server
+#### 2) Express Server
 
 To start the application using a regular `Express` server, open a terminal window, and run:
 ```
@@ -65,24 +65,24 @@ npm run dev
 ```
 
 Routes exposed:
-  - `POST`| http://localhost:3000/user/account                           
-  - `POST`| http://localhost:3000/transaction/transfer                   
-  - `POST`| http://localhost:3000/transaction/investment    
+  - `POST` | http://localhost:3333/user/account                           
+  - `POST` | http://localhost:3333/transaction/transfer                   
+  - `POST` | http://localhost:3333/transaction/investment    
 
 ## Testing Routes With Postman/Insomnia
 
-- Route: `/user/account`
+#### Route: `/user/account`
 
-Make a POST request with a valid CPF, example:
+Make a `POST` request with a valid CPF in the body. JSON example:
 ```
 {
   "cpf":"36577946035"
 }
 ```
 
-- Route: `transaction/transfer`
+#### Route: `transaction/transfer`
 
-Make a POST request with a valid transfer transaction, example:
+Make a `POST` request with a valid transfer transaction in the body. JSON example:
 ```
 {
 	"event":"TRANSFER",
@@ -100,9 +100,9 @@ Make a POST request with a valid transfer transaction, example:
 }
 ```
 
-- Route: `transaction/investment`
+#### Route: `transaction/investment`
 
-Make a POST request with a valid investment transaction, example:
+Make a `POST` request with a valid investment transaction in the body. JSON example:
 ```
 {
   "event": "INVESTMENT",
@@ -129,6 +129,6 @@ To run the end-to-end tests, run:
 npm run test:e2e
 ```
 
-*This tests depend on database setup.*
+***This tests depend on database setup.***
 
 ⚠ Be aware: this tests will clean **all** of the local database entries on completion.
