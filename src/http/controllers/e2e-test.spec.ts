@@ -4,6 +4,7 @@ import { app } from '@/http/app'
 import { DynamoClient } from '@/providers/database/dynamodb/client'
 
 const VALID_CPF = '36577946035'
+let createdAccountNumber: number
 
 describe('End-to-end tests for create user account and create transaction routes', () => {
   afterAll(async () => {
@@ -42,6 +43,8 @@ describe('End-to-end tests for create user account and create transaction routes
     })
 
     expect(response.status).toEqual(201)
+
+    createdAccountNumber = response.body.createdAccount.accountNumber
   })
 
   it('should be able to create a transfer', async () => {
@@ -52,7 +55,7 @@ describe('End-to-end tests for create user account and create transaction routes
         target: {
           bank: '352',
           branch: '0001',
-          account: '1',
+          account: createdAccountNumber.toString(),
         },
         origin: {
           bank: '123',
@@ -65,7 +68,7 @@ describe('End-to-end tests for create user account and create transaction routes
     expect(response.status).toEqual(201)
   })
 
-  it('should be able to create a investment', async () => {
+  it('should be able to create an investment', async () => {
     const response = await request(app).post('/transaction/investment').send({
       event: 'INVESTMENT',
       stock: 'PETR4',
