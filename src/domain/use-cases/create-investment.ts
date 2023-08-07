@@ -39,7 +39,7 @@ export class CreateInvestmentUseCase {
     const investmentTransactionCreated =
       await this.transactionsRepository.createInvestment(investmentTransaction)
 
-    const { balance } = await this.userAccountRepository.findByCpf(cpf)
+    const balance = userAccount.balance - investmentAmount
 
     return { investmentTransaction: investmentTransactionCreated, balance }
   }
