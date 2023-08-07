@@ -22,8 +22,6 @@ const isOffline =
 
 const isRunningOnCommonBuild = process.env.RUNNING_ENVIRONMENT === 'build'
 
-console.log(isOffline, isRunningOnCommonBuild)
-
 export const DynamoClient = isOffline
   ? new DynamoDB.DocumentClient(offlineParameters)
   : isRunningOnCommonBuild
