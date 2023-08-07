@@ -8,7 +8,7 @@
     "test:e2e": "vitest run --dir src/http/",
     "install:db": "sls dynamodb install",
     "start:db": "sls dynamodb start",
-    "dev:serverless": "sls offline",
+    "dev:sls": "sls offline",
     "dev": "ts-node-dev --exit-child --poll --inspect --transpile-only --ignore-watch node_modules -r tsconfig-paths/register --respawn src/http/server.ts",
     "build": "tsup src --out-dir dist --platform node && cp ./.env dist/",
     "start": "node dist/http/server.js"
