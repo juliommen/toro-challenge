@@ -37,14 +37,6 @@ export class TransactionsRepository implements ITransactionsRepository {
   async createInvestment(investmentTransaction: InvestmentTransaction) {
     this.transactions.push(investmentTransaction)
 
-    const amount = investmentTransaction.price * investmentTransaction.quantity
-    const userAccount =
-      await UserAccountRepository.getInstance().findByAccountNumber(
-        investmentTransaction.accountNumber,
-      )
-
-    userAccount.balance -= amount
-
     return investmentTransaction
   }
 }
