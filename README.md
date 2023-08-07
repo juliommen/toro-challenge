@@ -7,11 +7,11 @@ Install all the application dependencies:
 npm ci
 ```
 
-## Dynamodb Setup 
+## Dynamodb Set Up 
 
-In order to test the application locally, a DynamoDB instance must be setup.
+In order to test the application locally, a DynamoDB instance must be set up.
 
-There are two options to setup a DynamoDB instance.
+There are two options to set up a DynamoDB instance.
 
 #### 1) Using Docker
 
@@ -21,7 +21,6 @@ docker pull amazon/dynamodb-local
 ```
 
 ***Don't start*** the container with `docker run` command, instead run:
-
 ```
 npm run start:db
 ```
@@ -33,7 +32,7 @@ Install database:
 ```
 npm run install:db
 ```
-In the file `serverless.yml`, follow the path `custom > dynamodb > start` and edit the docker flag to `docker: false`
+In the file `serverless.yml`, follow the path `custom > dynamodb > start` and edit the docker flag to `docker: false`, saving the file after.
 
 Start database:
 ```
@@ -59,7 +58,7 @@ Routes exposed:
 
 #### 2) Express Server
 
-To start the application using a regular `Express` server, open a terminal window, and run:
+To start the application using a regular `Express.js` server, open a terminal window, and run:
 ```
 npm run dev
 ```
@@ -79,6 +78,8 @@ Make a `POST` request with a valid CPF in the body. JSON example:
   "cpf":"36577946035"
 }
 ```
+If no account was created yet, this will create a user account with account number 1.
+Subsequent accounts will be created incrementing the last account number created by 1.
 
 #### Route: `transaction/transfer`
 
@@ -108,9 +109,10 @@ Make a `POST` request with a valid investment transaction in the body. JSON exam
   "event": "INVESTMENT",
   "stock": "PETR4",
   "quantity": 100,
-  "cpf": "17638119134"
+  "cpf": "36577946035"
 }
 ```
+The `cpf` field is necessary to authenticate and validate the user.
 
 ## Running Automated Tests
 
@@ -120,7 +122,7 @@ To run the unit and integration tests, run:
 ```
 npm run test
 ```
-This tests don't depend on database setup, neither on running the application.
+This tests don't depend on database set up, neither on running the application.
 
 #### End-to-End Tests
 
@@ -129,6 +131,6 @@ To run the end-to-end tests, run:
 npm run test:e2e
 ```
 
-***These tests depend on database setup.***
+***These tests depend on the database set up.***
 
 ⚠ Be aware: these tests will clean **all** of the local database entries on completion.
