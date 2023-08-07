@@ -129,6 +129,6 @@ To run the end-to-end tests, run:
 npm run test:e2e
 ```
 
-***This tests depend on database setup.***
+***These tests depend on database setup.***
 
-⚠ Be aware: this tests will clean **all** of the local database entries on completion.
+⚠ Be aware: these tests will clean **all** of the local database entries on completion.
