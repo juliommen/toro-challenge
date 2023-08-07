@@ -1,5 +1,4 @@
 # INSTALLATION GUIDE
-___
 
 ## Installing Dependencies
 
@@ -41,7 +40,9 @@ Start database:
 npm run start:db
 ```
 
-#### Running the Application
+## Running the Application
+
+There are two options to run the application locally.
 
 1) Serverless Offline
 
@@ -51,9 +52,9 @@ npm run dev:sls
 ```
 
 Routes exposed:
-  │POST | http://localhost:3000/user/account                           
-  │POST | http://localhost:3000/transaction/transfer                   
-  │POST | http://localhost:3000/transaction/investment     
+  - `POST`| http://localhost:3000/user/account                           
+  - `POST`| http://localhost:3000/transaction/transfer                   
+  - `POST`| http://localhost:3000/transaction/investment     
 
 
 2) Express Server
@@ -64,11 +65,54 @@ npm run dev
 ```
 
 Routes exposed:
-  │POST | http://localhost:3333/user/account                           
-  │POST | http://localhost:3333/transaction/transfer                   
-  │POST | http://localhost:3333/transaction/investment   
+  - `POST`| http://localhost:3000/user/account                           
+  - `POST`| http://localhost:3000/transaction/transfer                   
+  - `POST`| http://localhost:3000/transaction/investment    
 
-## Running Tests
+## Testing Routes With Postman/Insomnia
+
+- Route: `/user/account`
+
+Make a POST request with a valid CPF, example:
+```
+{
+  "cpf":"36577946035"
+}
+```
+
+- Route: `transaction/transfer`
+
+Make a POST request with a valid transfer transaction, example:
+```
+{
+	"event":"TRANSFER",
+	"target": {
+		"bank":"352",
+		"branch":"0001",
+		"account":"1"
+	},
+	"origin":{
+		"bank":"033",
+		"branch":"03312",
+		"cpf":"36577946035"
+	},
+	"amount":5000
+}
+```
+
+- Route: `transaction/investment`
+
+Make a POST request with a valid investment transaction, example:
+```
+{
+  "event": "INVESTMENT",
+  "stock": "PETR4",
+  "quantity": 100,
+  "cpf": "17638119134"
+}
+```
+
+## Running Automated Tests
 
 #### Unit and Integration Tests
 
