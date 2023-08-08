@@ -11,6 +11,7 @@ describe('End-to-end tests for create user account and create transaction routes
     const scanResult = await DynamoClient.scan({
       TableName: 'transaction',
     }).promise()
+
     for (const item of scanResult.Items) {
       await DynamoClient.delete({
         TableName: 'transaction',
@@ -26,6 +27,7 @@ describe('End-to-end tests for create user account and create transaction routes
     const scanResult = await DynamoClient.scan({
       TableName: 'user_account',
     }).promise()
+
     for (const item of scanResult.Items) {
       await DynamoClient.delete({
         TableName: 'user_account',

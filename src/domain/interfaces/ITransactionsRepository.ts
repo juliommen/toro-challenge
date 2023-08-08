@@ -5,6 +5,7 @@ export interface ITransactionsRepository {
   createTransfer(
     transferTransaction: TransferTransaction,
   ): Promise<TransferTransaction>
+
   createInvestment(
     investmentTransaction: InvestmentTransaction,
   ): Promise<InvestmentTransaction>

@@ -11,7 +11,7 @@ export class TransactionsRepository implements ITransactionsRepository {
     const { accountNumber, amount, createdAt, event, origin } =
       transferTransaction
 
-    const result = await DynamoClient.transactWrite({
+    await DynamoClient.transactWrite({
       TransactItems: [
         {
           Put: {
@@ -50,7 +50,7 @@ export class TransactionsRepository implements ITransactionsRepository {
 
     const amount = -1 * price * quantity
 
-    const result = await DynamoClient.transactWrite({
+    await DynamoClient.transactWrite({
       TransactItems: [
         {
           Put: {

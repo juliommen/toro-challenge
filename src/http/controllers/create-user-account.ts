@@ -6,6 +6,7 @@ import { formatReponse } from '../utils/formatResponse'
 
 export async function createUserAccountController(req: Request, res: Response) {
   const { cpf } = req.body as ICreateUserAccountDTO
+
   const userAccount = new UserAccount(cpf)
 
   const createUserAccountUseCase = makeCreateUserAccountUseCase()

@@ -33,8 +33,13 @@ export class UserAccountRepository implements IUserAccountRepository {
     }).promise()
 
     if (response.Items && response.Items.length > 0) {
-      return toUserAccount(response.Items[0] as IUserAccountOnDatabase)
+      const userAccount = toUserAccount(
+        response.Items[0] as IUserAccountOnDatabase,
+      )
+
+      return userAccount
     }
+
     return null
   }
 
@@ -49,8 +54,13 @@ export class UserAccountRepository implements IUserAccountRepository {
     }).promise()
 
     if (response.Items && response.Items.length > 0) {
-      return toUserAccount(response.Items[0] as IUserAccountOnDatabase)
+      const userAccount = toUserAccount(
+        response.Items[0] as IUserAccountOnDatabase,
+      )
+
+      return userAccount
     }
+
     return null
   }
 

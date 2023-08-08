@@ -18,6 +18,8 @@ export class StockRepository implements IStockRepository {
       return null
     }
 
-    return toStock(response.Items[0] as IStockOnDatabase)
+    const stock = toStock(response.Items[0] as IStockOnDatabase)
+
+    return stock
   }
 }
